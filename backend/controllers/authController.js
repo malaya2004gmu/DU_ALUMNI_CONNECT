@@ -13,15 +13,20 @@ exports.login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      "your_secret_key",
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ id: user._id, role: user.role }, "MalayaDu2004", {
+      expiresIn: "1h",
+    });
 
     res.json({
       token,
-      user: { id: user._id, email: user.email, role: user.role },
+      user: {
+        id: user._id,
+        email: user.email,
+        role: user.role,
+        name: user.name,
+        contactNumber: user.contactNumber,
+        photo: user.photo,
+      },
     });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
@@ -30,6 +35,7 @@ exports.login = async (req, res) => {
 
 exports.handleRegister = async (req, res) => {
   const { name, contactNumber, email, password, role } = req.body;
+  const photo = req.file ? req.file.path : null;
 
   try {
     // Check if user exists
@@ -47,11 +53,47 @@ exports.handleRegister = async (req, res) => {
       email,
       password: hashedPassword,
       role,
+      photo,
     });
 
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+exports.updateProfile = async (req, res) => {
+  console.log("updating .. profile");
+  try {
+    const userId = req.user.id;
+    const { name, contactNumber } = req.body; // <-- fixed typo here
+    let updateFields = { name, contactNumber }; // <-- define updateFields
+
+    if (req.file) {
+      updateFields.photo = req.file.path.replace(/\\/g, "/");
+    }
+
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updateFields },
+      { new: true }
+    );
+    if (!updateUser) {
+      return res.status(404).json({ message: "user not found" });
+    }
+    res.json({
+      message: "profile updated successfully",
+      user: {
+        id: updateUser._id,
+        email: updateUser.email,
+        role: updateUser.role,
+        name: updateUser.name,
+        contactNumber: updateUser.contactNumber,
+        photo: updateUser.photo,
+      },
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

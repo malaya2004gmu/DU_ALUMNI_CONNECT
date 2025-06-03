@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { login, handleRegister } = require("../controllers/authController");
+const upload = require("../middleware/uploads");
+const {
+  login,
+  handleRegister,
+  updateProfile,
+} = require("../controllers/authController");
 
+const { verifyToken } = require("../middleware/auth");
 router.post("/login", login);
-router.post("/register", handleRegister);
+router.post("/register", upload.single("photo"), handleRegister);
+router.put("/profile", verifyToken, upload.single("photo"), updateProfile);
 module.exports = router;
