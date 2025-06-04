@@ -1,5 +1,4 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+
 const mongoose = require("mongoose");
 const User = require("../models/user");
 const JobPost = require("../models/jobPost");
@@ -7,6 +6,7 @@ const Event = require("../models/events");
 const Course = require("../models/course");
 
 exports.getAlumni = async (req, res) => {
+  
   try {
     const alumni = await User.find({ role: "alumni" }).select("-password");
     res.status(200).json(alumni);
@@ -90,5 +90,50 @@ exports.getPendingJob = async (req, res) => {
     return res
       .status(500)
       .json({ message: "Server error while retrieving  approved jobs" });
+  }
+};
+
+exports.addCourse =async (req,res)=>{
+  const { name, duration, description } = req.body;
+
+  if (!name || !duration || !description) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+   const existingCourse =await Course.findOne({name});
+  if (existingCourse) {
+    return res.status(400).json({ error: "Course already exists" });
+  }
+  try {
+    const newCourse = new Course({
+      name,
+      duration,
+      description,
+    });
+
+    await newCourse.save();
+    res.status(201).json({ message: "Course added successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to add course" });
+  }
+};
+exports.deleteCourse =async(req,res)=>{
+
+  try{
+    const courseId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(courseId)) {
+      return res.status(400).json({ error: "Invalid course ID" });
+    }
+
+    const deletedCourse = await Course.findByIdAndDelete(courseId);
+    if (!deletedCourse) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    res.status(200).json({ message: "Course deleted successfully" });
+  }
+  catch(err)
+  {
+    res.status(500).json({ error: "Failed to delete course" });
   }
 };

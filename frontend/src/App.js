@@ -10,7 +10,10 @@ import ManageEvents from "./pages/admin/ManagaEvents";
 import ManageJobs from "./pages/admin/ManageJob";
 import ManageAlumni from "./pages/admin/ManageAlumni";
 import PostJob from "./pages/Alumni/PostJob";
+import Myjobs from "./pages/Alumni/MyJobs";
 import MyProfile from "./pages/Alumni/MyProfile";
+import AddCourse from "./pages/admin/mngcourse/AddCourse";
+import DeleteCourse from "./pages/admin/mngcourse/DeleteCourse";
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +29,9 @@ function App() {
         <Route path="/admin/alumni" element={<ManageAlumni />} />
         <Route path="/alumni/post-job" element={<PostJob />} />
         <Route path="/alumni/profile" element={<MyProfile />} />
+        <Route path="/alumni/my-jobs" element={<Myjobs />} />
+        <Route path="/admin/add-course" element={<AddCourse/>}/>
+        <Route path="/admin/delete-course" element={<DeleteCourse/>}/>
         {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>

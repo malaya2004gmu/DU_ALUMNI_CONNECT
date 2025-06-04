@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-
+import { authFetch } from "../../utils/authFetch";
 const PostJob = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const PostJob = () => {
       return;
     }
     try {
-      const res = await fetch("http://localhost:5000/api/add/job-post", {
+      const res = await authFetch("http://localhost:5000/api/add/job-post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

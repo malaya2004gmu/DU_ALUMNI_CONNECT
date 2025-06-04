@@ -5,7 +5,7 @@ const Home = () => {
     <>
       <Slider />
     </>
-  );
+  ); 
 }; //comment
-
+ 
 export default Home;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-
+import { authFetch } from "../../utils/authFetch";
 const MyProfile = () => {
   const { user, login } = useAuth();
   console.log("user", user);
@@ -43,7 +43,7 @@ const MyProfile = () => {
 
     try {
       console.log("updating waiting ....");
-      const res = await fetch("http://localhost:5000/api/auth/profile", {
+      const res = await authFetch("http://localhost:5000/api/auth/profile", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

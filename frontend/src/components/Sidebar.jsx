@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaChalkboard, FaUsers, FaClipboardList } from "react-icons/fa";
 
 const Sidebar = () => {
   return (
@@ -12,27 +11,59 @@ const Sidebar = () => {
             Dashboard
           </Link>
         </li>
+        {/* Course Dropdown */}
         <li className="nav-item">
-          <Link to="/admin/courses" className="nav-link text-white">
-            Course
-          </Link>
+          <span className="nav-link text-white">Course</span>
+          <ul className="nav flex-column ms-3">
+            <li>
+              <Link to="/admin/add-course" className="nav-link text-white">
+                Add Course
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/delete-course" className="nav-link text-white">
+                Delete Course
+              </Link>
+            </li>
+          </ul>
         </li>
+        {/* Events Dropdown */}
         <li className="nav-item">
-          <Link to="/admin/events" className="nav-link text-white">
-            Events
-          </Link>
+          <span className="nav-link text-white">Events</span>
+          <ul className="nav flex-column ms-3">
+            <li>
+              <Link to="/admin/add-event" className="nav-link text-white">
+                Add Event
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/delete-event" className="nav-link text-white">
+                Delete Event
+              </Link>
+            </li>
+          </ul>
         </li>
         <li className="nav-item">
           <Link to="/admin/alumni" className="nav-link text-white">
             Alumni List
           </Link>
         </li>
+        {/* Job Posts Dropdown */}
         <li className="nav-item">
-          <Link to="/admin/job-posts" className="nav-link text-white">
-            Job Posts
-          </Link>
+          <span className="nav-link text-white">Job Posts</span>
+          <ul className="nav flex-column ms-3">
+            <li>
+              <Link to="/admin/job-posts/approve" className="nav-link text-white">
+                Approve
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin/job-posts/delete" className="nav-link text-white">
+                Delete
+              </Link>
+            </li>
+          </ul>
         </li>
-
         <li className="nav-item">
           <Link to="/admin/report" className="nav-link text-white">
             Report

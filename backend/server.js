@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const adminDashboardRoutes = require("./routes/adminDashboard");
+const alumniRoutes=require("./routes/alumni");
 const addingDataRoutes = require("./routes/addingData");
 const app = express();
 const path = require("path");
@@ -17,6 +18,7 @@ mongoose.connection.on("connected", () => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminDashboardRoutes);
+app.use("/api/alumni", alumniRoutes);
 app.use("/api/add", addingDataRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.listen(5000, () => {
