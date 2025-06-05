@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import Footer from "../../components/Footer";
 const PostedJobs = () => {
   const [jobs, setJobs] = useState([]);
-  const navigate = useNavigate();
+
   useEffect(() => {
     fetch("http://localhost:5000/api/admin/job-posts")
       .then((res) => res.json())
@@ -18,8 +18,8 @@ const PostedJobs = () => {
         <table className="min-w-full bg-white border">
           <thead>
             <tr>
-              <th className="border px-4 py-2">UserId</th>
-              <th className="border px-4 py-2">Title</th>
+              <th className="border px-4 py-2">Posted By</th>
+              <th className="border px-4 py-2">Job Rule</th>
               <th className="border px-4 py-2">Company</th>
               <th className="border px-4 py-2">Location</th>
               <th className="border px-4 py-2">Salary</th>

@@ -28,6 +28,7 @@ const Dashboard = () => {
       navigate("/login");
     }
   }, [user, navigate]);
+
   useEffect(() => {
     fetch("http://localhost:5000/api/admin/stat")
       .then((res) => res.json())
@@ -37,45 +38,50 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <main className="flex-1 p-6 bg-gray-100 animate-fade-in">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <main className="flex-1 p-4 sm:p-6 bg-gray-50 animate-fade-in">
+        <h1 className="text-2xl font-bold mb-6 text-gray-800">Admin Dashboard</h1>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <DashboardCard
             title="Total Events"
-            count={data.eventCount}
-            color="purple"
+            count={data.eventCount || 0}
+            color="bg-purple-600"
             icon={<FaClipboardList />}
-            onViewDetails={() => {}}
+            onViewDetails={() => navigate("/admin/events")}
           />
           <DashboardCard
-            title="Total Course"
-            count={data.courseCount}
-            color="orange"
+            title="Total Courses"
+            count={data.courseCount || 0}
+            color="bg-orange-500"
             icon={<FaBook />}
+            onViewDetails={() => navigate("/admin/courses")}
           />
-          
           <DashboardCard
-            title="Approved Job Post"
-            count={data.approvedJobCount}
-            color="teal"
+            title="Approved Jobs"
+            count={data.approvedJobCount || 0}
+            color="bg-teal-600"
             icon={<FaCheck />}
+            onViewDetails={() => navigate("/admin/jobposts")}
           />
           <DashboardCard
-            title="Canceled / Rejected Job Post"
-            count={data.pendingJobCount}
-            color="red"
+            title="Rejected Jobs"
+            count={(data.jobPostCount - data.approvedJobCount) || 0}
+            color="bg-red-600"
             icon={<FaTimes />}
+            onViewDetails={() => navigate("/admin/jobposts")}
           />
           <DashboardCard
-            title="Total Job Request"
-            count={data.jobPostCount}
-            color="purple"
+            title="Total Job Posts"
+            count={data.jobPostCount || 0}
+            color="bg-indigo-600"
             icon={<FaClipboardList />}
+            onViewDetails={() => navigate("/admin/jobposts")}
           />
           <DashboardCard
-            title="Total Alumni Reg"
-            count={data.alumniCount}
-            color="orange"
+            title="Total Alumni"
+            count={data.alumniCount || 0}
+            color="bg-yellow-600"
             icon={<FaUsers />}
+            onViewDetails={() => navigate("/admin/alumni")}
           />
         </div>
       </main>

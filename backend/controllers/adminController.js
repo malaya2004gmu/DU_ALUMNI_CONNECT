@@ -57,7 +57,7 @@ exports.getStatistics = async (req, res) => {
     const eventCount = await Event.countDocuments();
     const courseCount = await Course.countDocuments();
     const approvedJobCount =await JobPost.countDocuments({status:"approved"});
-    const pendingJobCount =await JobPost.countDocuments({status:"pending"});
+    const pendingJobCount =await JobPost.countDocuments({status:"rejected"});
     res.status(200).json({
       alumniCount,
       jobPostCount,

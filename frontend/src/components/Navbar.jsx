@@ -24,27 +24,42 @@ const Navbar = () => {
         {user?.role === "admin" && (
           <>
             <li>
-              <Link to="/admin/dashboard" className="hover:text-yellow-300 transition">
+              <Link
+                to="/admin/dashboard"
+                className="hover:text-yellow-300 transition"
+              >
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link to="/admin/courses" className="hover:text-yellow-300 transition">
+              <Link
+                to="/admin/courses"
+                className="hover:text-yellow-300 transition"
+              >
                 Courses
               </Link>
             </li>
             <li>
-              <Link to="/admin/events" className="hover:text-yellow-300 transition">
+              <Link
+                to="/admin/events"
+                className="hover:text-yellow-300 transition"
+              >
                 Events
               </Link>
             </li>
             <li>
-              <Link to="/admin/job-posts" className="hover:text-yellow-300 transition">
+              <Link
+                to="/admin/job-posts"
+                className="hover:text-yellow-300 transition"
+              >
                 Job Posts
               </Link>
             </li>
             <li>
-              <Link to="/admin/reports" className="hover:text-yellow-300 transition">
+              <Link
+                to="/admin/reports"
+                className="hover:text-yellow-300 transition"
+              >
                 Reports
               </Link>
             </li>
@@ -54,13 +69,19 @@ const Navbar = () => {
         {user?.role === "alumni" && (
           <>
             <li>
-              <Link to="/alumni/profile" className="hover:text-yellow-300 transition flex items-center gap-1">
+              <Link
+                to="/alumni/profile"
+                className="hover:text-yellow-300 transition flex items-center gap-1"
+              >
                 <FaUser />
-                Profile
+               My Profile
               </Link>
             </li>
             <li>
-              <Link to="/alumni/post-job" className="hover:text-yellow-300 transition">
+              <Link
+                to="/alumni/post-job"
+                className="hover:text-yellow-300 transition"
+              >
                 Post Job
               </Link>
             </li>
@@ -70,13 +91,42 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/alumni/my-jobs" className="hover:text-yellow-300 transition">
+              <Link
+                to="/alumni/my-jobs"
+                className="hover:text-yellow-300 transition"
+              >
                 My Posts
               </Link>
             </li>
           </>
         )}
+        {user?.role === "user" && (
+          <>
+            <li>
+              <Link
+                to="/alumni/profile"
+                className="hover:text-yellow-300 transition flex items-center gap-1"
+              >
+                <FaUser />
+                My Profile
+              </Link>
+            </li>
 
+            <li>
+              <Link to="/events" className="hover:text-yellow-300 transition">
+                Events
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/posted-jobs"
+                className="hover:text-yellow-300 transition"
+              >
+                Job Posts
+              </Link>
+            </li>
+          </>
+        )}
         {!user && (
           <>
             <li>
@@ -85,7 +135,10 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/posted-jobs" className="hover:text-yellow-300 transition">
+              <Link
+                to="/posted-jobs"
+                className="hover:text-yellow-300 transition"
+              >
                 Job Posts
               </Link>
             </li>
@@ -96,13 +149,26 @@ const Navbar = () => {
       {/* Right Action Button */}
       <div>
         {user ? (
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"
-          >
-            <FaSignOutAlt />
-            Logout
-          </button>
+          <div className="flex items-center gap-4">
+            {/* Profile Image */}
+            <img
+              src={
+                user.photo
+                  ? `http://localhost:5000/${user.photo}`
+                  : "/images/demoprofile.png"
+              }
+              alt="Profile"
+              className="w-9 h-9 rounded-full border-2 border-white object-cover"
+            />
+             {user.role==='alumni'?`ALUMNI`:`STUDENT`}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"
+            >
+              <FaSignOutAlt />
+              Logout
+            </button>
+          </div>
         ) : (
           <Link
             to="/login"
