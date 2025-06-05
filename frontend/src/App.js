@@ -14,6 +14,12 @@ import Myjobs from "./pages/Alumni/MyJobs";
 import MyProfile from "./pages/Alumni/MyProfile";
 import AddCourse from "./pages/admin/mngcourse/AddCourse";
 import DeleteCourse from "./pages/admin/mngcourse/DeleteCourse";
+import AddEvent  from "./pages/admin/mngevent/AddEvent";
+import DeleteEvent from "./pages/admin/mngevent/DeleteEvent";
+import Events from "./pages/User/Events";
+import PostedJobs from "./pages/User/PostedJobs";
+import EventDetails  from "./pages/User/EventDetail";
+import Footer from  "./components/Footer";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +38,12 @@ function App() {
         <Route path="/alumni/my-jobs" element={<Myjobs />} />
         <Route path="/admin/add-course" element={<AddCourse/>}/>
         <Route path="/admin/delete-course" element={<DeleteCourse/>}/>
+        <Route path="/admin/add-event" element ={<AddEvent/>}/>
+        <Route path="/admin/delete-event" element ={<DeleteEvent/>}/>
+        <Route path="/events" element={<Events />} />
+        <Route path="/posted-jobs" element={<PostedJobs />} />
+        <Route path="/events/:eventId" element={<EventDetails />} />
+        <Route path="/footer" element={<Footer />} />
         {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>

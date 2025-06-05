@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+
 const Navbar = () => {
   const { user, logout } = useAuth(); // user = { role: 'admin' | 'alumni' | 'user', name: '...' }
   const navigate = useNavigate();
@@ -12,28 +13,40 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-800 text-white px-6 py-4 flex justify-between items-center shadow-md">
-      <Link to="/" className="text-2xl font-bold text-white">
-        Alumni Portal
+    <nav className="bg-blue-900 text-white px-8 py-4 flex justify-between items-center shadow-lg">
+      {/* Logo */}
+      <Link to="/" className="text-2xl font-extrabold tracking-wide text-white">
+        DU<span className="text-yellow-400">Alumni</span>Connect
       </Link>
 
-      <ul className="flex space-x-6">
+      {/* Navigation Links */}
+      <ul className="flex gap-6 text-sm font-medium items-center">
         {user?.role === "admin" && (
           <>
             <li>
-              <Link to="/admin/dashboard">Dashboard</Link>
+              <Link to="/admin/dashboard" className="hover:text-yellow-300 transition">
+                Dashboard
+              </Link>
             </li>
             <li>
-              <Link to="/admin/courses">Courses</Link>
+              <Link to="/admin/courses" className="hover:text-yellow-300 transition">
+                Courses
+              </Link>
             </li>
             <li>
-              <Link to="/admin/events">Events</Link>
+              <Link to="/admin/events" className="hover:text-yellow-300 transition">
+                Events
+              </Link>
             </li>
             <li>
-              <Link to="/admin/job-posts">Job Posts</Link>
+              <Link to="/admin/job-posts" className="hover:text-yellow-300 transition">
+                Job Posts
+              </Link>
             </li>
             <li>
-              <Link to="/admin/reports">Reports</Link>
+              <Link to="/admin/reports" className="hover:text-yellow-300 transition">
+                Reports
+              </Link>
             </li>
           </>
         )}
@@ -41,19 +54,25 @@ const Navbar = () => {
         {user?.role === "alumni" && (
           <>
             <li>
-              <Link to="/alumni/profile" className="flex items-center gap-2">
+              <Link to="/alumni/profile" className="hover:text-yellow-300 transition flex items-center gap-1">
                 <FaUser />
-                My Profile
+                Profile
               </Link>
             </li>
             <li>
-              <Link to="/alumni/post-job">Post Job</Link>
+              <Link to="/alumni/post-job" className="hover:text-yellow-300 transition">
+                Post Job
+              </Link>
             </li>
             <li>
-              <Link to="/alumni/events">Events</Link>
+              <Link to="/events" className="hover:text-yellow-300 transition">
+                Events
+              </Link>
             </li>
             <li>
-              <Link to="/alumni/my-jobs">My Posts</Link>
+              <Link to="/alumni/my-jobs" className="hover:text-yellow-300 transition">
+                My Posts
+              </Link>
             </li>
           </>
         )}
@@ -61,28 +80,35 @@ const Navbar = () => {
         {!user && (
           <>
             <li>
-              <Link to="/events">Events</Link>
+              <Link to="/events" className="hover:text-yellow-300 transition">
+                Events
+              </Link>
             </li>
             <li>
-              <Link to="/jobs">Job Posts</Link>
+              <Link to="/posted-jobs" className="hover:text-yellow-300 transition">
+                Job Posts
+              </Link>
             </li>
           </>
         )}
       </ul>
 
+      {/* Right Action Button */}
       <div>
         {user ? (
           <button
             onClick={handleLogout}
-            className="bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+            className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"
           >
+            <FaSignOutAlt />
             Logout
           </button>
         ) : (
           <Link
             to="/login"
-            className="bg-green-500 px-4 py-2 rounded hover:bg-green-600"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition"
           >
+            <FaSignInAlt />
             Login
           </Link>
         )}

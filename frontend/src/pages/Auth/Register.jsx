@@ -58,95 +58,84 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-200">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-full max-w-sm"
+        className="bg-white p-8 md:p-10 rounded-3xl shadow-xl w-full max-w-lg animate-fade-in"
         encType="multipart/form-data"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Name</label>
-          <input
-            type="text"
-            name="name"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Contact Number</label>
-          <input
-            type="text"
-            name="contactNumber"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-            value={formData.contactNumber}
-            onChange={handleChange}
-            required
-            placeholder="1234567890"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="test@gmail.com"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Photo</label>
+        <h2 className="text-3xl font-bold mb-8 text-center text-blue-700">
+          Create Your Account
+        </h2>
+
+        {[
+          { label: "Name", name: "name", type: "text" },
+          { label: "Contact Number", name: "contactNumber", type: "text", placeholder: "1234567890" },
+          { label: "Email", name: "email", type: "email", placeholder: "test@gmail.com" },
+        ].map(({ label, name, type, placeholder }) => (
+          <div className="mb-5" key={name}>
+            <label className="block text-gray-700 font-medium mb-1">{label}</label>
+            <input
+              type={type}
+              name={name}
+              placeholder={placeholder}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+              value={formData[name]}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        ))}
+
+        <div className="mb-5">
+          <label className="block text-gray-700 font-medium mb-1">Profile Photo</label>
           <input
             type="file"
             name="photo"
             accept="image/*"
-            className="w-full"
+            className="w-full text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 transition"
             onChange={handlePhotoChange}
           />
         </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Confirm Password</label>
-          <input
-            type="password"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
+
+        {[
+          { label: "Password", name: "password", value: formData.password },
+          { label: "Confirm Password", name: "confirmPassword", value: confirmPassword },
+        ].map(({ label, name, value }) => (
+          <div className="mb-5" key={name}>
+            <label className="block text-gray-700 font-medium mb-1">{label}</label>
+            <input
+              type="password"
+              name={name}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+              value={value}
+              onChange={
+                name === "confirmPassword"
+                  ? (e) => setConfirmPassword(e.target.value)
+                  : handleChange
+              }
+              required
+            />
+          </div>
+        ))}
+
         <div className="mb-6">
-          <label className="block mb-1 font-medium">Role</label>
+          <label className="block text-gray-700 font-medium mb-1">Role</label>
           <select
             name="role"
             value={formData.role}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
           >
             <option value="user">User</option>
             <option value="alumni">Alumni</option>
             <option value="admin">Admin</option>
           </select>
         </div>
+
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold tracking-wide"
         >
           Register
         </button>

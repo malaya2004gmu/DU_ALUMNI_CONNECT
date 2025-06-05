@@ -1,27 +1,33 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const images = [
   {
     src: "./images/duclocktower.png",
-    alt: "College Campus 1",
+    alt: "DU Clock Tower",
     caption: "Welcome to Our Beautiful Campus",
   },
   {
     src: "./images/dustudent1.png",
-    alt: "College Campus 2",
+    alt: "DU Students",
     caption: "A Place for Learning and Growth",
   },
   {
     src: "./images/dulab.png",
-    alt: "College Campus 3",
+    alt: "DU Labs",
     caption: "Join Our Vibrant Alumni Community",
   },
 ];
 
 const Slider = () => {
   return (
-    <div id="carouselExampleDark" className="carousel carousel-dark slide">
+    <div
+      id="carouselExampleDark"
+      className="carousel slide carousel-fade"
+      data-bs-ride="carousel"
+    >
+      {/* Indicators */}
       <div className="carousel-indicators">
         {images.map((_, idx) => (
           <button
@@ -35,36 +41,65 @@ const Slider = () => {
           ></button>
         ))}
       </div>
+
+      {/* Slides */}
       <div className="carousel-inner">
         {images.map((img, idx) => (
           <div
             key={idx}
             className={`carousel-item${idx === 0 ? " active" : ""}`}
-            data-bs-interval={
-              idx === 0 ? "10000" : idx === 1 ? "2000" : undefined
-            }
+            data-bs-interval="5000"
           >
-            <img
-              src={img.src}
-              className="d-block w-100"
-              alt={img.alt}
-              style={{ height: "750px", objectFit: "cover" }}
-            />
-            <div className="carousel-caption d-none d-md-block">
-              <h1
+            <div
+              style={{
+                position: "relative",
+                height: "80vh",
+                overflow: "hidden",
+              }}
+            >
+              {/* Background image */}
+              <img
+                src={img.src}
+                className="d-block w-100"
+                alt={img.alt}
                 style={{
-                  color: "#fff",
-                  fontWeight: "bold",
-                  textShadow: "2px 2px 8px #000",
-                  fontSize: "3rem",
+                  height: "100%",
+                  objectFit: "cover",
+                  filter: "brightness(75%)",
                 }}
+              />
+
+              {/* Gradient overlay */}
+              <div
+                className="position-absolute top-0 start-0 w-100 h-100"
+                style={{
+                  background:
+                    "linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(0,0,0,0.6))",
+                  zIndex: 1,
+                }}
+              ></div>
+
+              {/* Caption */}
+              <div
+                className="carousel-caption d-none d-md-block"
+                style={{ zIndex: 2 }}
               >
-                {img.caption}
-              </h1>
+                <h1
+                  className="display-4 fw-bold"
+                  style={{
+                    color: "#fff",
+                    textShadow: "2px 2px 10px rgba(0,0,0,0.9)",
+                  }}
+                >
+                  {img.caption}
+                </h1>
+              </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Controls */}
       <button
         className="carousel-control-prev"
         type="button"

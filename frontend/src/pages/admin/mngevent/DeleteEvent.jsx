@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const DeleteCourse = () => {
-  const [courses, setCourses] = useState([]);
+
+const DeleteEvent = () => {
+  const [events, setEvents] = useState([]);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch all courses from backend
-    fetch("http://localhost:5000/api/admin/courses")
+    fetch("http://localhost:5000/api/admin/events")
       .then((res) => res.json())
-      .then((data) => setCourses(data));
+      .then((data) => setEvents(data));
   }, []);
 
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/admin/delete-course/${id}`, {
+    const res = await fetch(`http://localhost:5000/api/admin/delete-event/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {
-      setCourses(courses.filter((course) => course._id !== id));
-      setMessage("Course deleted successfully!");
+      setEvents(events.filter((event) => event._id !== id));
+      setMessage("Event deleted successfully!");
     } else {
-      setMessage("Failed to delete course.");
+      setMessage("Failed to delete event");
     }
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-5xl animate-fade-in">
-        <h2 className="text-2xl font-bold mb-6 text-center">Delete Course</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Delete Event</h2>
         {message && (
           <div className="mb-4 text-center text-green-600 font-semibold">
             {message}
@@ -36,30 +36,30 @@ const DeleteCourse = () => {
         <table className="min-w-full bg-white border">
           <thead>
             <tr>
-              <th className="border px-4 py-2">Course Name</th>
+              <th className="border px-4 py-2">Event Name</th>
               
               <th className="border px-4 py-2">Action</th>
             </tr>
           </thead>
           <tbody>
-            {courses.map((course) => (
-              <tr key={course._id}>
-                <td className="border px-4 py-2">{course.name}</td>
+            {events.map((event) => (
+              <tr key={event._id}>
+                <td className="border px-4 py-2">{event.title}</td>
                
                 <td className="border px-4 py-2">
                   <button
                     className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition"
-                    onClick={() => handleDelete(course._id)}
+                    onClick={() => handleDelete(event._id)}
                   >
                     Delete
                   </button>
                 </td>
               </tr>
             ))}
-            {courses.length === 0 && (
+            {events.length === 0 && (
               <tr>
                 <td colSpan={3} className="text-center py-4 text-gray-500">
-                  No courses found.
+                  No events found.
                 </td>
               </tr>
             )}
@@ -70,4 +70,4 @@ const DeleteCourse = () => {
   );
 };
 
-export default DeleteCourse;
+export default DeleteEvent;

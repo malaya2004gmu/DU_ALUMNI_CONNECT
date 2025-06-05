@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,16 +27,13 @@ const Login = () => {
         return;
       }
 
-      // Store JWT and user info in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       login(data.user);
-      // Redirect based on role
+
       const role = data.user.role;
       if (role === "admin") {
         navigate("/admin/dashboard");
-      } else if (role === "alumni") {
-        navigate("/");
       } else {
         navigate("/");
       }
@@ -45,50 +44,58 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-200">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-full max-w-sm"
+        className="bg-white p-8 md:p-10 rounded-3xl shadow-xl w-full max-w-md animate-fade-in"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium" htmlFor="email">
+        <h2 className="text-3xl font-bold mb-8 text-center text-blue-700">
+          Welcome Back
+        </h2>
+
+        <div className="mb-5">
+          <label className="block mb-1 font-medium text-gray-700" htmlFor="email">
             Email
           </label>
           <input
             id="email"
             type="email"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             autoComplete="username"
+            placeholder="you@example.com"
           />
         </div>
+
         <div className="mb-6">
-          <label className="block mb-1 font-medium" htmlFor="password">
+          <label className="block mb-1 font-medium text-gray-700" htmlFor="password">
             Password
           </label>
           <input
             id="password"
             type="password"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-400"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             autoComplete="current-password"
+            placeholder="••••••••"
           />
         </div>
+
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold tracking-wide"
         >
           Login
         </button>
-        <p className="mt-4 text-center text-sm">
+
+        <p className="mt-5 text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline">
-            Sign Up
+          <Link to="/register" className="text-blue-600 font-medium hover:underline">
+            Sign up here
           </Link>
         </p>
       </form>

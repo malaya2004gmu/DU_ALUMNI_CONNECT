@@ -6,8 +6,9 @@ const {
   addJobPost,
 } = require("../controllers/addingDataController");
 const { verifyToken } = require("../middleware/auth");
+const upload = require("../middleware/uploads");
 
-router.post("/add-event", addEvent);
+router.post("/event",upload.single("image"), addEvent);
 router.post("/add-course", addCourse);
 router.post("/job-post", verifyToken, addJobPost);
 

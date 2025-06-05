@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { authFetch } from "../../utils/authFetch";
+import Footer from "../../components/Footer";
+
 const PostJob = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -45,74 +47,59 @@ const PostJob = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-full max-w-lg"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center">Post a Job</h2>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Job Title</label>
-          <input
-            type="text"
-            name="title"
-            value={form.title}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-2xl animate-fade-in">
+          <h2 className="text-4xl font-extrabold text-center text-blue-700 mb-10 tracking-tight">
+            🚀 Post a New Job
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {[
+              { label: "Job Title", name: "title" },
+              { label: "Company", name: "company" },
+              { label: "Location", name: "location" },
+              { label: "Salary", name: "salary" },
+            ].map(({ label, name }) => (
+              <div key={name}>
+                <label className="block text-gray-700 font-semibold mb-1">
+                  {label}
+                </label>
+                <input
+                  type="text"
+                  name={name}
+                  value={form[name]}
+                  onChange={handleChange}
+                  placeholder={`Enter ${label}`}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition"
+                  required={name !== "salary"}
+                />
+              </div>
+            ))}
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">
+                Job Description
+              </label>
+              <textarea
+                name="description"
+                value={form.description}
+                onChange={handleChange}
+                placeholder="Describe the job responsibilities, requirements, etc."
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
+                rows={6}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all duration-200 font-semibold text-lg shadow-md"
+            >
+              Post Job 🎯
+            </button>
+          </form>
         </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Company</label>
-          <input
-            type="text"
-            name="company"
-            value={form.company}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Location</label>
-          <input
-            type="text"
-            name="location"
-            value={form.location}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Salary</label>
-          <input
-            type="text"
-            name="salary"
-            value={form.salary}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-          />
-        </div>
-        <div className="mb-6">
-          <label className="block mb-1 font-medium">Description</label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            rows={4}
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-        >
-          Post Job
-        </button>
-      </form>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 

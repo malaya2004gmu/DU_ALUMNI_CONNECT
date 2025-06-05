@@ -1,6 +1,7 @@
 const mongoose =  require( "mongoose");
 const jobPost =require("../models/jobPost");
 const User = require("../models/user");
+const Event =require("../models/events");
 exports.getMyJobs =async (req,res)=>{
    
     try{

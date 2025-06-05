@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { authFetch } from "../../utils/authFetch";
+
 const MyProfile = () => {
   const { user, login } = useAuth();
-  console.log("user", user);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -14,7 +14,6 @@ const MyProfile = () => {
   const [preview, setPreview] = useState("");
 
   useEffect(() => {
-    console.log("user:", user);
     if (user) {
       setForm({
         name: user.name || "",
@@ -30,8 +29,9 @@ const MyProfile = () => {
   };
 
   const handlePhotoChange = (e) => {
-    setPhotoFile(e.target.files[0]);
-    setPreview(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    setPhotoFile(file);
+    setPreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (e) => {
@@ -42,7 +42,6 @@ const MyProfile = () => {
     if (photoFile) data.append("photo", photoFile);
 
     try {
-      console.log("updating waiting ....");
       const res = await authFetch("http://localhost:5000/api/auth/profile", {
         method: "PUT",
         headers: {
@@ -62,64 +61,73 @@ const MyProfile = () => {
       alert("Something went wrong!");
     }
   };
+
   return (
-    <div className="min-h-screen p-10 bg-gradient-to-br from-blue-100 to-blue-300">
-      <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden min-h-[600px]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-8">
-          {/* Profile Image and Summary */}
-          <div className="flex flex-col items-center text-center col-span-1">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 py-12 px-4">
+      <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden animate-fade-in">
+        <div className="grid md:grid-cols-3 gap-10 p-10">
+    
+          <div className="flex flex-col items-center text-center md:col-span-1">
             <img
               src={preview || "https://via.placeholder.com/150"}
               alt="Profile"
-              className="w-60 h-60 rounded-full object-cover border-4 border-blue-400 mb-4"
+              className="w-44 h-44 rounded-full object-cover border-4 border-blue-400 shadow-md mb-4"
             />
-            <h2 className="text-4xl font-semibold">{form.name}</h2>
-            <p className="text-gray-600 text-2xl">{user?.email}</p>
-            <p className="text-2xl text-gray-500 capitalize">
+            <h2 className="text-3xl font-bold text-blue-800 mb-1">
+              {form.name}
+            </h2>
+            <p className="text-gray-600 text-lg">{user?.email}</p>
+            <p className="text-lg text-gray-500 capitalize">
               Role: {user?.role}
             </p>
             {!editing && (
               <button
                 onClick={() => setEditing(true)}
-                className="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                className="mt-5 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition font-medium animate-fade-in"
               >
                 Edit Profile
               </button>
             )}
           </div>
 
-          {/* Profile Details or Form */}
+          {/* Details or Edit Form */}
           <div className="md:col-span-2">
             {!editing ? (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
-                  <h3 className="text-2xl font-semibold">Full Name</h3>
-                  <p className="text-gray-700">{form.name}</p>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    Full Name
+                  </h3>
+                  <p className="text-gray-700 text-lg">{form.name}</p>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold">Email</h3>
-                  <p className="  text-gray-700">{user?.email}</p>
+                  <h3 className="text-xl font-semibold text-gray-800">Email</h3>
+                  <p className="text-gray-700 text-lg">{user?.email}</p>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold">Contact Number</h3>
-                  <p className="text-gray-700">{form.contactNumber}</p>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    Contact Number
+                  </h3>
+                  <p className="text-gray-700 text-lg">{form.contactNumber}</p>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 ">
                 <div>
-                  <label className="block mb-1 font-medium">Full Name</label>
+                  <label className="block text-gray-700 font-medium mb-1">
+                    Full Name
+                  </label>
                   <input
                     type="text"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded shadow-sm"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium">
+                  <label className="block text-gray-700 font-medium mb-1">
                     Contact Number
                   </label>
                   <input
@@ -127,32 +135,32 @@ const MyProfile = () => {
                     name="contactNumber"
                     value={form.contactNumber}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded shadow-sm"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block mb-1 font-medium">
-                    Change Profile Pic
+                  <label className="block text-gray-700 font-medium mb-1 ">
+                    Profile Picture
                   </label>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={handlePhotoChange}
-                    className="w-full"
+                    className="w-full text-sm text-gray-500"
                   />
                 </div>
-                <div className="flex gap-4 mt-4">
+                <div className="flex gap-4">
                   <button
                     type="submit"
-                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition font-medium animate-fade-in"
                   >
                     Save Changes
                   </button>
                   <button
                     type="button"
-                    className="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500 transition"
                     onClick={() => setEditing(false)}
+                    className="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition font-medium animate-fade-in"
                   >
                     Cancel
                   </button>

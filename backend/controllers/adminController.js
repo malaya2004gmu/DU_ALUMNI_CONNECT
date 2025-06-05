@@ -15,6 +15,7 @@ exports.getAlumni = async (req, res) => {
     res.status(500).json({ message: "Server error while retriving user data" });
   }
 };
+
 exports.getJobPosts = async (req, res) => {
   try {
     const jobPosts = await JobPost.find({})
@@ -38,6 +39,7 @@ exports.getEvents = async (req, res) => {
     res.status(500).json({ message: "Server error while retrieving events" });
   }
 };
+
 exports.getCourses = async (req, res) => {
   try {
     const courses = await Course.find({}).exec();
@@ -54,12 +56,15 @@ exports.getStatistics = async (req, res) => {
     const jobPostCount = await JobPost.countDocuments();
     const eventCount = await Event.countDocuments();
     const courseCount = await Course.countDocuments();
-
+    const approvedJobCount =await JobPost.countDocuments({status:"approved"});
+    const pendingJobCount =await JobPost.countDocuments({status:"pending"});
     res.status(200).json({
       alumniCount,
       jobPostCount,
       eventCount,
       courseCount,
+      approvedJobCount,
+      pendingJobCount
     });
   } catch (err) {
     console.error(err);
@@ -80,6 +85,7 @@ exports.getApprovedJob = async (req, res) => {
       .json({ message: "Server error while retrieving  approved jobs" });
   }
 };
+
 exports.getPendingJob = async (req, res) => {
   try {
     const pendingjobs = await JobPost.find({ status: pending });
@@ -117,6 +123,7 @@ exports.addCourse =async (req,res)=>{
     res.status(500).json({ error: "Failed to add course" });
   }
 };
+
 exports.deleteCourse =async(req,res)=>{
 
   try{
@@ -135,5 +142,85 @@ exports.deleteCourse =async(req,res)=>{
   catch(err)
   {
     res.status(500).json({ error: "Failed to delete course" });
+  }
+};
+
+exports.deleteEvent =async(req,res)=>{
+  try {
+    const eventId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(eventId)) {
+      return res.status(400).json({ error: "Invalid event ID" });
+    }
+
+    const deletedEvent = await Event.findByIdAndDelete(eventId);
+    if (!deletedEvent) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
+    res.status(200).json({ message: "Event deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete event" });
+  }
+};
+exports.getEventDetails =async(req,res)=>{
+  const eventId = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(eventId)) {
+    return res.status(400).json({ error: "Invalid event ID" });
+  }
+
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+    res.status(200).json(event);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to retrieve event details" });
+  }
+};
+
+exports.setApproveJob=async(req,res)=>{
+  const jobId = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(jobId)) {
+    console.log("invalid id");
+    return res.status(400).json({ error: "Invalid job ID" });
+  }
+
+  try {
+    const updatedJob = await JobPost.findByIdAndUpdate(
+      jobId,
+      { status: "approved" },
+      { new: true }
+    );
+    if (!updatedJob) {
+      console.log("job not found");
+      return res.status(404).json({ error: "Job post not found" });
+    }
+    res.status(200).json({success:true, message: "Job post approved successfully", updatedJob });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Failed to approve job post" });
+  }
+};
+exports.setRejectJob=async(req,res)=>{
+  const jobId = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(jobId)) {
+    return res.status(400).json({ error: "Invalid job ID" });
+  }
+
+  try {
+    const updatedJob = await JobPost.findByIdAndUpdate(
+      jobId,
+      { status: "rejected" },
+      { new: true }
+    );
+    if (!updatedJob) {
+      return res.status(404).json({ error: "Job post not found" });
+    }
+    res.status(200).json({ success:true, message: "Job post rejected successfully", updatedJob });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to reject job post" });
   }
 };

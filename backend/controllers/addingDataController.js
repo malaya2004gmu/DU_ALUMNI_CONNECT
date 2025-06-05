@@ -8,11 +8,13 @@ const Course = require("../models/course");
 exports.addEvent = async (req, res) => {
   try {
     const { title, description, date, location } = req.body;
+    const photo= req.file? req.file.path.replace(/\\/g,"/") :null;
     const newEvent = new Event({
       title,
       description,
       date,
       location,
+      photo,
     });
 
     await newEvent.save();

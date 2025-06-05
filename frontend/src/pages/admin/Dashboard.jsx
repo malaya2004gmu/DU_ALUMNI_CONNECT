@@ -15,13 +15,12 @@ const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState({
-    totalEvents: 0,
-    totalCourses: 0,
-    newJobs: 0,
-    approvedJobs: 0,
-    rejectedJobs: 0,
-    totalJobs: 0,
-    totalAlumni: 0,
+    eventCount: 0,
+    courseCount: 0,
+    approvedJobCount: 0,
+    pendingJobCount: 0,
+    jobPostCount: 0,
+    alumniCount: 0,
   });
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const Dashboard = () => {
     }
   }, [user, navigate]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/stats")
+    fetch("http://localhost:5000/api/admin/stat")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
@@ -38,48 +37,43 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <main className="flex-1 p-6 bg-gray-100">
+      <main className="flex-1 p-6 bg-gray-100 animate-fade-in">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <DashboardCard
             title="Total Events"
-            count={data.totalEvents}
+            count={data.eventCount}
             color="purple"
             icon={<FaClipboardList />}
             onViewDetails={() => {}}
           />
           <DashboardCard
             title="Total Course"
-            count={data.totalCourses}
+            count={data.courseCount}
             color="orange"
             icon={<FaBook />}
           />
-          <DashboardCard
-            title="New Job Post Request"
-            count={data.newJobs}
-            color="orange"
-            icon={<FaClipboardList />}
-          />
+          
           <DashboardCard
             title="Approved Job Post"
-            count={data.approvedJobs}
+            count={data.approvedJobCount}
             color="teal"
             icon={<FaCheck />}
           />
           <DashboardCard
             title="Canceled / Rejected Job Post"
-            count={data.rejectedJobs}
+            count={data.pendingJobCount}
             color="red"
             icon={<FaTimes />}
           />
           <DashboardCard
             title="Total Job Request"
-            count={data.totalJobs}
+            count={data.jobPostCount}
             color="purple"
             icon={<FaClipboardList />}
           />
           <DashboardCard
             title="Total Alumni Reg"
-            count={data.totalAlumni}
+            count={data.alumniCount}
             color="orange"
             icon={<FaUsers />}
           />
