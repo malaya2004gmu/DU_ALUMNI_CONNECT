@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ["admin", "alumni", "user"], default: "user" },
   contactNumber: String,
   photo: String,
+  course:String,
+  year:String,
   createdAt: { type: Date, default: Date.now },
 });
 

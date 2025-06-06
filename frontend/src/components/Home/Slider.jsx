@@ -48,7 +48,7 @@ const Slider = () => {
           <div
             key={idx}
             className={`carousel-item${idx === 0 ? " active" : ""}`}
-            data-bs-interval="5000"
+            data-bs-interval="3000"
           >
             <div
               style={{

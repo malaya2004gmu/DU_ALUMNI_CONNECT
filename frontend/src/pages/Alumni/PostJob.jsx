@@ -26,7 +26,7 @@ const PostJob = () => {
       return;
     }
     try {
-      const res = await authFetch("http://localhost:5000/api/add/job-post", {
+      const res = await authFetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/add/job-post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

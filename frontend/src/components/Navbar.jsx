@@ -74,7 +74,7 @@ const Navbar = () => {
                 className="hover:text-yellow-300 transition flex items-center gap-1"
               >
                 <FaUser />
-               My Profile
+                My Profile
               </Link>
             </li>
             <li>
@@ -154,13 +154,20 @@ const Navbar = () => {
             <img
               src={
                 user.photo
-                  ? `http://localhost:5000/${user.photo}`
+                  ? `https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/${user.photo}`
                   : "/images/demoprofile.png"
               }
               alt="Profile"
               className="w-9 h-9 rounded-full border-2 border-white object-cover"
             />
-             {user.role==='alumni'?`ALUMNI`:`STUDENT`}
+            <span className="ml-2 font-semibold uppercase text-xs tracking-wider text-yellow-300">
+              {user.role === "admin"
+                ? "ADMIN"
+                : user.role === "alumni"
+                ? "ALUMNI"
+                : "STUDENT"}
+            </span>
+
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"

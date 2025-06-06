@@ -15,13 +15,13 @@ const ManageJobs = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/job-posts")
+    fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/job-posts")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);
 
   const handleApprove = (jobId) => {
-    fetch(`http://localhost:5000/api/admin/approve-job/${jobId}`, {
+    fetch(`https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/approve-job/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const ManageJobs = () => {
   };
 
   const handleReject = (jobId) => {
-    fetch(`http://localhost:5000/api/admin/reject-job/${jobId}`, {
+    fetch(`https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/reject-job/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

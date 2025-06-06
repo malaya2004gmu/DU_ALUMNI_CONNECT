@@ -15,7 +15,7 @@ const ManageAlumni = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/alumni")
+    fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/alumni")
       .then((res) => res.json())
       .then((data) => setAlumni(data));
   }, []);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,21 @@ const Signup = () => {
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [photo, setPhoto] = useState(null);
+  const [courses, setCourses] = useState([]);
 
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/courses");
+        const data = await res.json();
+        setCourses(data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        alert("Failed to load courses. Please try again later.");
+      }
+    };
+    fetchCourses();
+  }, []);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -18,7 +32,7 @@ const Signup = () => {
   const handlePhotoChange = (e) => {
     setPhoto(e.target.files[0]);
   };
-
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, contactNumber, email, password, role } = formData;
@@ -34,10 +48,11 @@ const Signup = () => {
     data.append("email", email);
     data.append("password", password);
     data.append("role", role);
+    data.append("course", formData.course);
     if (photo) data.append("photo", photo);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/auth/register", {
         method: "POST",
         body: data,
       });
@@ -127,12 +142,27 @@ const Signup = () => {
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
           >
-            <option value="user">User</option>
+            <option value="user">Student</option>
             <option value="alumni">Alumni</option>
-            <option value="admin">Admin</option>
+            
           </select>
         </div>
-
+        <div className="mb-6">
+          <label className="block text-gray-700 font-medium mb-1">Course</label>
+          <select
+            name="course"
+            value={formData.course}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+          >
+            <option value="">Select Course</option>
+            {courses.map((course) => (
+              <option key={course._id} value={course.name}>
+                {course.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold tracking-wide"

@@ -16,7 +16,7 @@ const MyJobs = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    authFetch("http://localhost:5000/api/alumni/my-jobs")
+    authFetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/alumni/my-jobs")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);

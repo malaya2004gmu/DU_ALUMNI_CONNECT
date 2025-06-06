@@ -7,7 +7,7 @@ const EventDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/admin/event-details/${eventId}`)
+    fetch(`https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/event-details/${eventId}`)
       .then((res) => res.json())
       .then((data) => setEvent(data))
       .catch(() => setEvent(null));
@@ -18,7 +18,7 @@ const EventDetails = () => {
       <>
       <div className="flex min-h-screen items-center justify-center bg-gray-100 animate-fade-in">
         <div className="bg-white p-8 rounded shadow-md w-full max-w-md text-center">
-          <h2 className="text-2xl font-bold mb-4">Event Details</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">Event Details</h2>
           <p className="text-gray-500">Event not found.</p>
           <button
             className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
@@ -41,7 +41,7 @@ const EventDetails = () => {
         {event.photo && (
           <div className="mb-4 flex justify-center">
             <img
-              src={`http://localhost:5000/${event.photo}`}
+              src={`https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/${event.photo}`}
               alt={event.title}
               className="max-h-100 rounded shadow"
             />

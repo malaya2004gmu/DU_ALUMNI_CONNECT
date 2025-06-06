@@ -12,7 +12,7 @@ const AddCourse = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/add-course", {
+      const res = await fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/add-course", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -19,7 +19,7 @@ const AddEvent = () => {
     if (image) formData.append("image", image);
 
     try {
-      const res = await fetch("http://localhost:5000/api/add/event", {
+      const res = await fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/add/event", {
         method: "POST",
         body: formData,
       });

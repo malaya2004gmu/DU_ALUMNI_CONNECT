@@ -1,47 +1,65 @@
 import React, { useEffect, useState } from "react";
-
 import Footer from "../../components/Footer";
+
 const PostedJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/job-posts")
+    fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/job-posts")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);
 
   return (
     <>
-    <div className="flex min-h-screen">
-      <main className="flex-1 p-6 animate-fade-in">
-        <h2 className="text-2xl font-bold mb-4">Apply For Jobs</h2>
-        <table className="min-w-full bg-white border">
-          <thead>
-            <tr>
-              <th className="border px-4 py-2">Posted By</th>
-              <th className="border px-4 py-2">Job Rule</th>
-              <th className="border px-4 py-2">Company</th>
-              <th className="border px-4 py-2">Location</th>
-              <th className="border px-4 py-2">Salary</th>
-              <th className="border px-4 py-2">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {jobs.map((job) => (
-              <tr key={job._id}>
-                <td className="border px-4 py-2">{job.postedBy.email}</td>
-                <td className="border px-4 py-2">{job.title}</td>
-                <td className="border px-4 py-2">{job.company}</td>
-                <td className="border px-4 py-2">{job.location}</td>
-                <td className="border px-4 py-2">₹ {job.salary}</td>
-                <td className="border px-4 py-2">{job.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </main>
-    </div>
-    <Footer />
+      <div className="flex min-h-screen bg-gradient-to-b from-blue-50 to-white">
+        <main className="flex-1 p-6 animate-fade-in">
+          <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center">
+            Explore Job Opportunities
+          </h2>
+
+          <div className="overflow-x-auto shadow-md rounded-lg bg-white p-4">
+            {jobs.length === 0 ? (
+              <div className="text-center text-gray-500 p-4">
+                No job yet
+              </div>
+            ) : (
+              <table className="min-w-full table-auto text-sm text-gray-700">
+                <thead>
+                  <tr className="bg-blue-100 text-blue-800 text-left">
+                    <th className="px-4 py-3">Posted By</th>
+                    <th className="px-4 py-3">Job Role</th>
+                    <th className="px-4 py-3">Company</th>
+                    <th className="px-4 py-3">Location</th>
+                    <th className="px-4 py-3">Salary</th>
+                    <th className="px-4 py-3">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {jobs.map((job) => (
+                    <tr
+                      key={job._id}
+                      className="hover:bg-blue-50 border-b border-gray-200"
+                    >
+                      <td className="px-4 py-3">{job.postedBy?.email}</td>
+                      <td className="px-4 py-3 font-medium text-blue-900">
+                        {job.title}
+                      </td>
+                      <td className="px-4 py-3">{job.company}</td>
+                      <td className="px-4 py-3">{job.location}</td>
+                      <td className="px-4 py-3">₹ {job.salary}</td>
+                      <td className="px-4 py-3 text-gray-600">
+                        {job.description?.slice(0, 100)}...
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </main>
+      </div>
+      <Footer />
     </>
   );
 };

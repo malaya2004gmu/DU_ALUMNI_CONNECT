@@ -15,7 +15,7 @@ const ManageEvents = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/events")
+    fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);
