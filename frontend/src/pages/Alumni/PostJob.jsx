@@ -26,7 +26,7 @@ const PostJob = () => {
       return;
     }
     try {
-      const res = await authFetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/add/job-post", {
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/add/job-post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -15,7 +15,7 @@ const Signup = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/courses");
+        const res = await fetch("https://du-alumni-connect.onrender.com/api/admin/courses");
         const data = await res.json();
         setCourses(data);
       } catch (error) {
@@ -52,7 +52,7 @@ const Signup = () => {
     if (photo) data.append("photo", photo);
 
     try {
-      const res = await fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/auth/register", {
+      const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/register", {
         method: "POST",
         body: data,
       });

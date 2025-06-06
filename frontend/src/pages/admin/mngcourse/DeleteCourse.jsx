@@ -7,13 +7,13 @@ const DeleteCourse = () => {
 
   useEffect(() => {
     // Fetch all courses from backend
-    fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/courses")
+    fetch("https://du-alumni-connect.onrender.com/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
 
   const handleDelete = async (id) => {
-    const res = await fetch(`https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/delete-course/${id}`, {
+    const res = await fetch(`https://du-alumni-connect.onrender.com/api/admin/delete-course/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {

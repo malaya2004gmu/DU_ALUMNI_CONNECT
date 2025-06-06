@@ -7,7 +7,7 @@ const EventDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/event-details/${eventId}`)
+    fetch(`https://du-alumni-connect.onrender.com/api/admin/event-details/${eventId}`)
       .then((res) => res.json())
       .then((data) => setEvent(data))
       .catch(() => setEvent(null));
@@ -41,7 +41,7 @@ const EventDetails = () => {
         {event.photo && (
           <div className="mb-4 flex justify-center">
             <img
-              src={`https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/${event.photo}`}
+              src={`https://du-alumni-connect.onrender.com/${event.photo}`}
               alt={event.title}
               className="max-h-100 rounded shadow"
             />

@@ -15,7 +15,7 @@ const ManageCourses = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/courses")
+    fetch("https://du-alumni-connect.onrender.com/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);

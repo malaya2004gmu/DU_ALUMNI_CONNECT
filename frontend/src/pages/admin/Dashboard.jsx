@@ -30,7 +30,7 @@ const Dashboard = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/admin/stat")
+    fetch("https://du-alumni-connect.onrender.com/api/admin/stat")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);

@@ -154,7 +154,7 @@ const Navbar = () => {
             <img
               src={
                 user.photo
-                  ? `https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/${user.photo}`
+                  ? `https://du-alumni-connect.onrender.com/${user.photo}`
                   : "/images/demoprofile.png"
               }
               alt="Profile"

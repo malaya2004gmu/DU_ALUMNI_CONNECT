@@ -20,7 +20,7 @@ const MyProfile = () => {
         contactNumber: user.contactNumber || "",
         photo: user.photo || "",
       });
-      setPreview(user.photo ? `https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/${user.photo}` : "");
+      setPreview(user.photo ? `https://du-alumni-connect.onrender.com/${user.photo}` : "");
     }
   }, [user]);
 
@@ -42,7 +42,7 @@ const MyProfile = () => {
     if (photoFile) data.append("photo", photoFile);
 
     try {
-      const res = await authFetch("https://du-alumni-connect-iuuu-1zqxbiob6-malaya2004gmus-projects.vercel.app/api/auth/profile", {
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/auth/profile", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
