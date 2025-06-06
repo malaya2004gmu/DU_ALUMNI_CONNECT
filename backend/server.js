@@ -7,7 +7,7 @@ const alumniRoutes=require("./routes/alumni");
 const addingDataRoutes = require("./routes/addingData");
 const app = express();
 const path = require("path");
-app.use(cors({origin: "https://du-alumni-connect.onrender.com",credentials: true}));
+app.use(cors({origin: "*"}));
 app.use(express.json());
 
 mongoose.connect(
