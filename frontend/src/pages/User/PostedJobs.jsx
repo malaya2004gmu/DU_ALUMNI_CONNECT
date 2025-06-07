@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../../components/Footer";
+
 
 const PostedJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/job-posts")
+    fetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);
 
   return (
     <>
-      <div className="flex min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <main className="flex-1 p-6 animate-fade-in">
+      <div className="flex min-h-screen bg-gradient-to-b from-blue-50 to-white ">
+        <main className="flex-1 overflow-x-auto p-6 animate-fade-in">
           <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center">
             Explore Job Opportunities
           </h2>
@@ -24,7 +24,7 @@ const PostedJobs = () => {
                 No job yet
               </div>
             ) : (
-              <table className="min-w-full table-auto text-sm text-gray-700">
+              <table className="min-w-full overflow-x-auto table-auto text-sm text-gray-700">
                 <thead>
                   <tr className="bg-blue-100 text-blue-800 text-left">
                     <th className="px-4 py-3">Posted By</th>
@@ -59,7 +59,7 @@ const PostedJobs = () => {
           </div>
         </main>
       </div>
-      <Footer />
+      
     </>
   );
 };

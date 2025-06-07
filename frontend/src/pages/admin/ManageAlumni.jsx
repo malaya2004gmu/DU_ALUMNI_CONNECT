@@ -5,14 +5,15 @@ import Sidebar from "../../components/Sidebar";
 
 const ManageAlumni = () => {
   const [alumni, setAlumni] = useState([]);
-  const { user } = useAuth();
+  const { user,loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(loading) return;
     if (!user || user.role !== "admin") {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user,loading, navigate]);
 
   useEffect(() => {
     fetch("https://du-alumni-connect.onrender.com/api/admin/alumni")
@@ -21,9 +22,9 @@ const ManageAlumni = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex  min-h-screen bg-gray-100">
       <Sidebar />
-      <main className="flex-1 p-6 animate-fade-in">
+      <main className="flex-1 p-6 animate-fade-in overflow-x-auto">
         <h2 className="text-3xl font-bold mb-6 text-blue-700">Manage Alumni</h2>
         <div className="overflow-x-auto rounded shadow bg-white">
           <table className="min-w-full text-sm text-left border">
@@ -32,6 +33,8 @@ const ManageAlumni = () => {
                 <th className="px-4 py-3 border">Name</th>
                 <th className="px-4 py-3 border">Email</th>
                 <th className="px-4 py-3 border">Contact</th>
+                <th className="px-4 py-3 border">Course</th>
+                <th className="px-4 py-3 border">YearOfAdm.</th>
               </tr>
             </thead>
             <tbody>
@@ -43,6 +46,8 @@ const ManageAlumni = () => {
                     </td>
                     <td className="border px-4 py-2 text-gray-700">{alum.email}</td>
                     <td className="border px-4 py-2 text-gray-700">{alum.contactNumber}</td>
+                    <td className="border px-4 py-2 text-gray-700">{alum.course}</td>
+                    <td className="border px-4 py-2 text-gray-700">{alum.year}</td>
                   </tr>
                 ))
               ) : (

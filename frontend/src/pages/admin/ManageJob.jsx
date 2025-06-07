@@ -5,14 +5,15 @@ import Sidebar from "../../components/Sidebar";
 
 const ManageJobs = () => {
   const [jobs, setJobs] = useState([]);
-  const { user } = useAuth();
+  const { user ,loading} = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(loading)return;
     if (!user || user.role !== "admin") {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user,loading, navigate]);
 
   useEffect(() => {
     fetch("https://du-alumni-connect.onrender.com/api/admin/job-posts")
@@ -63,9 +64,10 @@ const ManageJobs = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex  min-h-screen bg-gray-100">
       <Sidebar />
-      <main className="flex-1 p-6 overflow-auto animate-fade-in">
+      <main className="flex-1 p-6 overflow-x-auto
+       animate-fade-in">
         <h2 className="text-3xl font-bold mb-6 text-blue-700">Manage Job Posts</h2>
         <div className="overflow-x-auto rounded shadow bg-white">
           <table className="min-w-full text-sm text-left border">
@@ -84,7 +86,7 @@ const ManageJobs = () => {
             <tbody>
               {jobs.map((job) => (
                 <tr key={job._id} className="hover:bg-gray-50">
-                  <td className="border px-4 py-2">{job.postedBy.email}</td>
+                  <td className="border px-4 py-2">{job.postedBy?.email}</td>
                   <td className="border px-4 py-2">{job.title}</td>
                   <td className="border px-4 py-2">{job.company}</td>
                   <td className="border px-4 py-2">{job.location}</td>

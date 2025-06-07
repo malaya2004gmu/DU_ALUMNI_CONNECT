@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { authFetch } from "../../utils/authFetch";
-import Footer from "../../components/Footer";
+
 
 const PostJob = () => {
-  const { user } = useAuth();
+  const { user} = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "",
@@ -98,7 +98,7 @@ const PostJob = () => {
           </form>
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 };

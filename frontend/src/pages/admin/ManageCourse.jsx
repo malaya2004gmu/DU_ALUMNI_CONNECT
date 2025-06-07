@@ -4,15 +4,16 @@ import { useAuth } from "../../context/AuthContext";
 import Sidebar from "../../components/Sidebar";
 
 const ManageCourses = () => {
-  const { user } = useAuth();
+  const { user,loading } = useAuth();
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
+    if(loading)return;
     if (!user || user.role !== "admin") {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user,loading, navigate]);
 
   useEffect(() => {
     fetch("https://du-alumni-connect.onrender.com/api/admin/courses")
@@ -21,10 +22,10 @@ const ManageCourses = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex  min-h-screen bg-gray-100">
       <Sidebar />
       <main className="flex-1 p-6 animate-fade-in">
-        <h2 className="text-3xl font-bold mb-6 text-blue-700">Manage Courses</h2>
+        <h2 className="text-3xl font-bold mb-6 text-blue-700 overflow-x-auto">Manage Courses</h2>
         <div className="overflow-x-auto rounded shadow bg-white">
           <table className="min-w-full text-sm text-left border">
             <thead className="bg-blue-50 text-blue-800 font-semibold">

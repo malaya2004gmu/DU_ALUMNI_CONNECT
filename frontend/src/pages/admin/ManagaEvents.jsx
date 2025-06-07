@@ -5,14 +5,15 @@ import Sidebar from "../../components/Sidebar";
 
 const ManageEvents = () => {
   const [events, setEvents] = useState([]);
-  const { user } = useAuth();
+  const { user,loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(loading) return;
     if (!user || user.role !== "admin") {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user,loading, navigate]);
 
   useEffect(() => {
     fetch("https://du-alumni-connect.onrender.com/api/admin/events")
@@ -21,9 +22,9 @@ const ManageEvents = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex  min-h-screen bg-gray-100">
       <Sidebar />
-      <main className="flex-1 p-6 animate-fade-in">
+      <main className="flex-1 p-6 animate-fade-in overflow-x-auto">
         <h2 className="text-3xl font-bold mb-6 text-blue-700">Manage Events</h2>
         <div className="overflow-x-auto rounded shadow bg-white">
           <table className="min-w-full text-sm text-left border">

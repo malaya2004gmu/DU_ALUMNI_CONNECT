@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer";
+
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -19,7 +19,7 @@ const Events = () => {
   return (
     <>
       <div className="flex min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <main className="flex-1 p-6 animate-fade-in">
+        <main className="flex-1 p-6 animate-fade-in overflow-x-auto">
           <h2 className="text-3xl font-bold mb-6 text-blue-700 text-center">All Events</h2>
           <div className="overflow-x-auto shadow-md rounded-lg bg-white p-4">
             <table className="min-w-full table-auto text-sm text-gray-700">
@@ -62,7 +62,7 @@ const Events = () => {
           </div>
         </main>
       </div>
-      <Footer />
+     
     </>
   );
 };

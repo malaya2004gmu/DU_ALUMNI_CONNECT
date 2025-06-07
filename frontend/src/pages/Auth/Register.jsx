@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from "react";
-
+import Footer from "../../components/Footer";
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -7,6 +7,8 @@ const Signup = () => {
     email: "",
     password: "",
     role: "user",
+    course:"",
+    year:"",
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -35,7 +37,7 @@ const Signup = () => {
    
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, contactNumber, email, password, role } = formData;
+    const { name, contactNumber, email, password, role ,course,year} = formData;
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
@@ -48,7 +50,8 @@ const Signup = () => {
     data.append("email", email);
     data.append("password", password);
     data.append("role", role);
-    data.append("course", formData.course);
+    data.append("course", course);
+    data.append("year", year);
     if (photo) data.append("photo", photo);
 
     try {
@@ -73,6 +76,7 @@ const Signup = () => {
   };
 
   return (
+    <>
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-200">
       <form
         onSubmit={handleSubmit}
@@ -155,7 +159,7 @@ const Signup = () => {
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
           >
-            <option value="">Select Course</option>
+            <option value={formData.course}>Select Course</option>
             {courses.map((course) => (
               <option key={course._id} value={course.name}>
                 {course.name}
@@ -163,6 +167,18 @@ const Signup = () => {
             ))}
           </select>
         </div>
+        <div className="mb-5" key="year">
+            <label className="block text-gray-700 font-medium mb-1">Year Of Admission</label>
+            <input
+              type="text"
+              name="year"
+              placeholder="year of admission"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+              value={formData.year}
+              onChange={handleChange}
+              required
+            />
+          </div>
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold tracking-wide"
@@ -171,6 +187,8 @@ const Signup = () => {
         </button>
       </form>
     </div>
+    <Footer/>
+    </>
   );
 };
 

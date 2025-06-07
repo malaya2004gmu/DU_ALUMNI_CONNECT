@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer";
+
 const EventDetails = () => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
@@ -28,7 +28,7 @@ const EventDetails = () => {
           </button>
         </div>
       </div>
-      <Footer />
+      
       </>
     );
   }
@@ -67,7 +67,7 @@ const EventDetails = () => {
         </button>
       </div>
     </div>
-    <Footer />
+   
     </>
   );
 };

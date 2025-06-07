@@ -22,7 +22,7 @@ const Home = () => {
 
         <FinalCall />
       </div>
-      <Footer />
+     
     </>
   );
 };

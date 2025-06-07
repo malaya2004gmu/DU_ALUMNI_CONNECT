@@ -26,7 +26,7 @@ const DeleteEvent = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-5xl animate-fade-in">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-5xl animate-fade-in overflow-x-auto">
         <h2 className="text-2xl font-bold mb-6 text-center">Delete Event</h2>
         {message && (
           <div className="mb-4 text-center text-green-600 font-semibold">

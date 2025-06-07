@@ -26,6 +26,8 @@ exports.login = async (req, res) => {
         name: user.name,
         contactNumber: user.contactNumber,
         photo: user.photo,
+        year: user.year,
+        course:user.course,
       },
     });
   } catch (err) {
@@ -34,7 +36,7 @@ exports.login = async (req, res) => {
 };
 
 exports.handleRegister = async (req, res) => {
-  const { name, contactNumber, email, password, role } = req.body;
+  const { name, contactNumber, email, password, role,year,course } = req.body;
   const photo = req.file ? req.file.path : null;
 
   try {
@@ -54,6 +56,8 @@ exports.handleRegister = async (req, res) => {
       password: hashedPassword,
       role,
       photo,
+      year,
+      course,
     });
 
     await newUser.save();
@@ -92,6 +96,8 @@ exports.updateProfile = async (req, res) => {
         name: updateUser.name,
         contactNumber: updateUser.contactNumber,
         photo: updateUser.photo,
+        course: updateUser.course,
+        year: updateUser.year,
       },
     });
   } catch (err) {

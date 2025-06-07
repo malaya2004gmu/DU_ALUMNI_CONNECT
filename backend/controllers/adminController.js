@@ -76,7 +76,7 @@ exports.getStatistics = async (req, res) => {
 
 exports.getApprovedJob = async (req, res) => {
   try {
-    const approvedjobs = await JobPost.find({ status: approved });
+    const approvedjobs = await JobPost.find({ status: "approved" }).populate("postedBy", "name email").exec();
     res.status(200).json(approvedjobs);
   } catch (err) {
     console.error(err);
@@ -203,6 +203,7 @@ exports.setApproveJob=async(req,res)=>{
     res.status(500).json({ error: "Failed to approve job post" });
   }
 };
+
 exports.setRejectJob=async(req,res)=>{
   const jobId = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(jobId)) {
@@ -222,5 +223,49 @@ exports.setRejectJob=async(req,res)=>{
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to reject job post" });
+  }
+};
+
+exports.getReports=async(req,res)=>{
+  const { role, fromDate, course, year } = req.query;
+  const query = {};
+
+  if (role) {
+    query.role = role;
+  }
+  if (fromDate) {
+    query.createdAt = { $gte: new Date(fromDate) };
+  }
+  if (course) {
+    query.course = course;
+  }
+  if (year) {
+    query.year = year;
+  }
+
+  try {
+    const reports = await User.find(query).select("-password").exec();
+    res.status(200).json(reports);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while retrieving reports" });
+  }
+};
+
+exports.deleteJob =async(req,res)=>{
+  const jobId = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(jobId)) {
+    return res.status(400).json({ error: "Invalid job ID" });
+  }
+
+  try {
+    const deletedJob = await JobPost.findByIdAndDelete(jobId);
+    if (!deletedJob) {
+      return res.status(404).json({ error: "Job post not found" });
+    }
+    res.status(200).json({ message: "Job post deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete job post" });
   }
 };

@@ -9,6 +9,8 @@ const MyProfile = () => {
     name: "",
     contactNumber: "",
     photo: "",
+    course: "",
+    year: "",
   });
   const [photoFile, setPhotoFile] = useState(null);
   const [preview, setPreview] = useState("");
@@ -19,6 +21,8 @@ const MyProfile = () => {
         name: user.name || "",
         contactNumber: user.contactNumber || "",
         photo: user.photo || "",
+        course: user.course || "",
+        year: user.year || "",
       });
       setPreview(user.photo ? `https://du-alumni-connect.onrender.com/${user.photo}` : "");
     }
@@ -39,6 +43,8 @@ const MyProfile = () => {
     const data = new FormData();
     data.append("name", form.name);
     data.append("contactNumber", form.contactNumber);
+    data.append("course", form.course);
+    data.append("year", form.year);
     if (photoFile) data.append("photo", photoFile);
 
     try {
@@ -66,10 +72,9 @@ const MyProfile = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 py-12 px-4">
       <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden animate-fade-in">
         <div className="grid md:grid-cols-3 gap-10 p-10">
-    
           <div className="flex flex-col items-center text-center md:col-span-1">
             <img
-              src={preview || "https://via.placeholder.com/150"}
+              src={preview || "http://via.placeholder.com/150"}
               alt="Profile"
               className="w-44 h-44 rounded-full object-cover border-4 border-blue-400 shadow-md mb-4"
             />
@@ -110,6 +115,18 @@ const MyProfile = () => {
                   </h3>
                   <p className="text-gray-700 text-lg">{form.contactNumber}</p>
                 </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    Course
+                  </h3>
+                  <p className="text-gray-700 text-lg">{form.course || "N/A"}</p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    Year of Admission
+                  </h3>
+                  <p className="text-gray-700 text-lg">{form.year || "N/A"}</p>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6 ">
@@ -137,6 +154,30 @@ const MyProfile = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">
+                    Course
+                  </label>
+                  <input
+                    type="text"
+                    name="course"
+                    value={form.course}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">
+                    Year of Admission
+                  </label>
+                  <input
+                    type="text"
+                    name="year"
+                    value={form.year}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                 </div>
                 <div>

@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/User/Home";
 import Login from "./pages/Auth/Login";
-import Navbar from "./components/Navbar";
 import Register from "./pages/Auth/Register";
 import Dashboard from "./pages/admin/Dashboard";
 import ManageCourses from "./pages/admin/ManageCourse";
@@ -19,11 +18,16 @@ import DeleteEvent from "./pages/admin/mngevent/DeleteEvent";
 import Events from "./pages/User/Events";
 import PostedJobs from "./pages/User/PostedJobs";
 import EventDetails  from "./pages/User/EventDetail";
-import Footer from  "./components/Footer";
+import Reports  from "./pages/admin/ManageReport";
+import ApprovedJobs from "./pages/admin/mngjob/ApprovedJob";
+import Layout from "./components/Layout";
+import Footer from "./components/Footer";
+import RejectedJobs from "./pages/admin/mngjob/RejectedJobs";
+import DeleteJob from "./pages/admin/mngjob/DeleteJob";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -40,12 +44,17 @@ function App() {
         <Route path="/admin/delete-course" element={<DeleteCourse/>}/>
         <Route path="/admin/add-event" element ={<AddEvent/>}/>
         <Route path="/admin/delete-event" element ={<DeleteEvent/>}/>
+        <Route path="/admin/reports" element={<Reports />} />
         <Route path="/events" element={<Events />} />
         <Route path="/posted-jobs" element={<PostedJobs />} />
         <Route path="/events/:eventId" element={<EventDetails />} />
         <Route path="/footer" element={<Footer />} />
-        {/* Add more routes as needed */}
+        <Route path="/admin/approved-jobs" element={<ApprovedJobs />} />
+        <Route path="/admin/rejected-jobs" element={<RejectedJobs />} />
+        <Route path="/admin/delete-job" element={<DeleteJob />} />
       </Routes>
+      </Layout>
+      
     </BrowserRouter>
   );
 }

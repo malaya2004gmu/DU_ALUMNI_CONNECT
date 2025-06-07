@@ -7,7 +7,13 @@ const alumniRoutes=require("./routes/alumni");
 const addingDataRoutes = require("./routes/addingData");
 const app = express();
 const path = require("path");
-app.use(cors({origin: "*"}));
+app.use(cors(
+  {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }
+));
 app.use(express.json());
 
 mongoose.connect(

@@ -8,55 +8,56 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => (
-  <footer className="bg-gray-600 text-white py-6 shadow-inner">
-    <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 gap-4">
-      {/* Left - Branding */}
-      <div className="text-center md:text-left text-sm md:text-base">
-        <span className="font-semibold text-lg text-blue-300">DU Alumni Connect</span> &copy;{" "}
-        {new Date().getFullYear()}
+  <footer className="bg-gray-800 text-gray-300 py-6 shadow-inner mt-auto">
+    <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6 px-4 md:px-8">
+      
+      {/* Branding */}
+      <div className="text-center md:text-left">
+        <h2 className="text-xl font-semibold text-blue-400">DU Alumni Connect</h2>
+        <p className="text-sm mt-1">&copy; {new Date().getFullYear()} All rights reserved</p>
       </div>
 
-      {/* Center - Social Icons */}
-      <div className="flex items-center space-x-5 text-blue-400 text-lg">
+      {/* Social Links */}
+      <div className="flex space-x-5 text-xl text-blue-400">
         <a
-          href="https://www.du.ac.in/"
+          href="http://www.du.ac.in/"
           target="_blank"
           rel="noopener noreferrer"
           title="University Website"
-          className="hover:text-white transition duration-300"
+          className="hover:text-white transition"
         >
           <FaGlobe />
         </a>
         <a
-          href="https://instagram.com/yourdualumni"
+          href="http://instagram.com/yourdualumni"
           target="_blank"
           rel="noopener noreferrer"
           title="Instagram"
-          className="hover:text-white transition duration-300"
+          className="hover:text-white transition"
         >
           <FaInstagram />
         </a>
         <a
-          href="https://twitter.com/yourdualumni"
+          href="http://twitter.com/yourdualumni"
           target="_blank"
           rel="noopener noreferrer"
           title="Twitter"
-          className="hover:text-white transition duration-300"
+          className="hover:text-white transition"
         >
           <FaTwitter />
         </a>
         <a
-          href="mailto:support@dualumni.com"
+          href="mailto:supportadmindualumni@gmail.com"
           title="Email"
-          className="hover:text-white transition duration-300"
+          className="hover:text-white transition"
         >
           <FaEnvelope />
         </a>
       </div>
 
-      {/* Right - Tagline */}
-      <div className="text-sm md:text-base text-center md:text-right">
-        Made with <FaHeart className="inline text-red-500" /> by Your Team
+      {/* Tagline */}
+      <div className="text-center md:text-right text-sm">
+        Made with <FaHeart className="inline text-red-500 animate-pulse" /> by Our Team
       </div>
     </div>
   </footer>
