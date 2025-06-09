@@ -39,6 +39,7 @@ const DeleteJob = () => {
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Posted By</th>
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Job Role</th>
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Company</th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Status</th>
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Manage</th>
             </tr>
           </thead>
@@ -48,6 +49,7 @@ const DeleteJob = () => {
                 <td className=" px-4 py-2">{job.postedBy.email}</td>
                 <td className=" px-4 py-2">{job.title}</td>
                 <td className=" px-4 py-2">{job.company}</td>
+                <td className={`px-4 py-2 font-semibold ${job.status==="rejected"?"text-red-600":job.status==="approved"?"text-green-600":"text-gray-700"}`}>{job.status}</td>
                 <td className=" px-4 py-2">
                   <button
                     className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition"
