@@ -13,6 +13,7 @@ const PostJob = () => {
     location: "",
     salary: "",
     description: "",
+    applyLink: "",
   });
 
   const handleChange = (e) => {
@@ -59,6 +60,7 @@ const PostJob = () => {
               { label: "Company", name: "company" },
               { label: "Location", name: "location" },
               { label: "Salary", name: "salary" },
+              { label: "Apply Link", name: "applyLink" },
             ].map(({ label, name }) => (
               <div key={name}>
                 <label className="block text-gray-700 font-semibold mb-1">
@@ -87,6 +89,17 @@ const PostJob = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
                 rows={6}
                 required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">
+                Posted By
+              </label>
+              <input
+                type="text"
+                value={user?.email || ""}
+                readOnly
+                className="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition cursor-not-allowed"
               />
             </div>
             <button

@@ -33,6 +33,7 @@ const PostedJobs = () => {
                     <th className="px-4 py-3">Location</th>
                     <th className="px-4 py-3">Salary</th>
                     <th className="px-4 py-3">Description</th>
+                    <th className="px-4 py-3">Apply</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,16 @@ const PostedJobs = () => {
                       <td className="px-4 py-3 text-gray-600">
                         {job.description?.slice(0, 100)}...
                       </td>
+                      <td className="px-4 py-3">
+                        <a
+                          href={job.applyLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        />
+                          Apply Now
+                          
+                        </td>
                     </tr>
                   ))}
                 </tbody>

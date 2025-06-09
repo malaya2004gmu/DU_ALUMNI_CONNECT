@@ -7,6 +7,7 @@ const jobPostSchema = new mongoose.Schema({
   company: String,
   location:String,
   salary:String,
+  applyLink: String,
   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   status: {
     type: String,

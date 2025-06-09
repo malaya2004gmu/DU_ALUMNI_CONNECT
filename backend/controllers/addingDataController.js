@@ -52,14 +52,15 @@ exports.addJobPost = async (req, res) => {
   // }
 
   try {
-    const { title, description, company, location, salary } = req.body;
+    const { title, description, company, location, salary ,applyLink} = req.body;
     const newJobPost = new JobPost({
       title,
       description,
       company,
       location,
       salary,
-      postedBy: req.user._id, // Assuming req.user is set by authentication middleware
+      postedBy: req.user._id, 
+      applyLink,// Assuming req.user is set by authentication middleware
     });
     await newJobPost.save();
     res
