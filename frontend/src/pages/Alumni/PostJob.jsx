@@ -91,17 +91,7 @@ const PostJob = () => {
                 required
               />
             </div>
-            <div>
-              <label className="block text-gray-700 font-semibold mb-1">
-                Posted By
-              </label>
-              <input
-                type="text"
-                value={user?.email || ""}
-                readOnly
-                className="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition cursor-not-allowed"
-              />
-            </div>
+            
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all duration-200 font-semibold text-lg shadow-md"
