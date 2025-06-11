@@ -7,7 +7,7 @@ export const ChatProvider = ({ children }) => {
   const socketRef = useRef(null);
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:5000");
+    socketRef.current = io("https://du-alumni-connect.onrender.com");
 
     return () => {
       if (socketRef.current) {

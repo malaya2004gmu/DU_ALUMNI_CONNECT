@@ -7,13 +7,13 @@ const DeleteJob = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/job-posts")
+    fetch("https://du-alumni-connect.onrender.com/api/admin/job-posts")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);
 
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/admin/delete-job/${id}`, {
+    const res = await fetch(`https://du-alumni-connect.onrender.com/api/admin/delete-job/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {

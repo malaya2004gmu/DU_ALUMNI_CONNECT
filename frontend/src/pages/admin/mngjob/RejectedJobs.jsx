@@ -4,7 +4,7 @@ const RejectedJobs = () => {
   const [rejectedJobs, setRejectedJobs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/job-posts")
+    fetch("https://du-alumni-connect.onrender.com/api/admin/job-posts")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter((job) => job.status !== "approved");
