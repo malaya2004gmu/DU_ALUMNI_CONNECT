@@ -20,7 +20,7 @@ exports.postMessage= async(req,res)=>{
    res.json({ success: true });
 };
 
-exports.postMessage= async(req,res)=>{
+exports.getMessage= async(req,res)=>{
  const { user1, user2 } = req.query;
 
   if (!user1 || !user2) {
