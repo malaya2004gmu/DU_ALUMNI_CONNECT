@@ -1,4 +1,4 @@
-const mongoose =require ("mongoose");
+const mongoose = require("mongoose");
 const ChatRoom =require("../models/chatRoom");
 
 exports.postMessage= async(req,res)=>{
