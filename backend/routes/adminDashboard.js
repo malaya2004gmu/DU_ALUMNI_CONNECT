@@ -13,7 +13,8 @@ const {
   setApproveJob,
   setRejectJob,
   getReports,
-  deleteJob
+  deleteJob,
+  allUser,
 } = require("../controllers/adminController");
 // const {verifyToken} = require("../middleware/auth");
 router.get("/alumni", getAlumni);
@@ -30,4 +31,5 @@ router.delete("/delete-event/:id",deleteEvent);
 router.delete("/delete-job/:id",deleteJob);
 router.put("/approve-job/:id",setApproveJob);
 router.put("/reject-job/:id",setRejectJob);
+router.get("/alluser",allUser);
 module.exports = router;

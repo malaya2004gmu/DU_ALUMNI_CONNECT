@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaUser, FaSignOutAlt, FaSignInAlt, FaBars, FaTimes } from "react-icons/fa";
+import { FaUser, FaSignOutAlt, FaSignInAlt, FaBars, FaTimes, FaComments } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -63,12 +63,22 @@ const Navbar = () => {
           )}
         </ul>
 
-        {/* Profile + Logout/Login */}
+        {/* Profile + Messaging + Logout/Login */}
         <div className="hidden sm:flex items-center gap-4 ml-6">
+          {user && user.role !=="admin" &&(
+            <Link
+              to="/chat"
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition"
+              title="Messages"
+            >
+              <FaComments />
+              Message
+            </Link>
+          )}
           {user ? (
             <>
               <img
-                src={user.photo ? `https://du-alumni-connect.onrender.com/${user.photo}` : "/images/demoprofile.png"}
+                src={user.photo ? `http://localhost:5000/${user.photo}` : "/images/demoprofile.png"}
                 alt="Profile"
                 className="w-9 h-9 rounded-full border-2 border-white object-cover"
               />
@@ -125,6 +135,20 @@ const Navbar = () => {
               <li><Link to="/events" onClick={() => setMenuOpen(false)}>Events</Link></li>
               <li><Link to="/posted-jobs" onClick={() => setMenuOpen(false)}>Job Posts</Link></li>
             </>
+          )}
+
+          {/* Messaging button for mobile */}
+          {user && user.role !=="admin" && (
+            <li>
+              <Link
+                to="/chat"
+                className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                onClick={() => setMenuOpen(false)}
+              >
+                <FaComments />
+                Message
+              </Link>
+            </li>
           )}
 
           {/* Auth button for mobile */}

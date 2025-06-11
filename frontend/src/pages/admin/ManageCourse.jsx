@@ -16,7 +16,7 @@ const ManageCourses = () => {
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/courses")
+    fetch("http://localhost:5000/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);

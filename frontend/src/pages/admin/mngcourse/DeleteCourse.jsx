@@ -7,13 +7,13 @@ const DeleteCourse = () => {
 
   useEffect(() => {
     // Fetch all courses from backend
-    fetch("https://du-alumni-connect.onrender.com/api/admin/courses")
+    fetch("http://localhost:5000/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
 
   const handleDelete = async (id) => {
-    const res = await fetch(`https://du-alumni-connect.onrender.com/api/admin/delete-course/${id}`, {
+    const res = await fetch(`http://localhost:5000/api/admin/delete-course/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {

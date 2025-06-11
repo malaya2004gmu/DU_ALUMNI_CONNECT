@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-
 const PostedJobs = () => {
   const [jobs, setJobs] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
+    fetch("http://localhost:5000/api/admin/approved-jobs")
       .then((res) => res.json())
       .then((data) => setJobs(data));
+
+    //  Check if user is logged in (e.g., check localStorage for token or userId)
+    const user = localStorage.getItem("user");
+    if (user) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   return (
@@ -20,9 +26,7 @@ const PostedJobs = () => {
 
           <div className="overflow-x-auto shadow-md rounded-lg bg-white p-4">
             {jobs.length === 0 ? (
-              <div className="text-center text-gray-500 p-4">
-                No job yet
-              </div>
+              <div className="text-center text-gray-500 p-4">No job yet</div>
             ) : (
               <table className="min-w-full overflow-x-auto table-auto text-sm text-gray-700">
                 <thead>
@@ -53,15 +57,21 @@ const PostedJobs = () => {
                         {job.description?.slice(0, 100)}...
                       </td>
                       <td className="px-4 py-3">
-                        <a
-                          href={job.applyLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline"
-                        >
-                          Apply Now
+                        {isLoggedIn ? (
+                          <a
+                            href={job.applyLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            Apply Now
                           </a>
-                        </td>
+                        ) : (
+                          <span className="text-red-500 italic">
+                            Login to apply
+                          </span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -70,7 +80,6 @@ const PostedJobs = () => {
           </div>
         </main>
       </div>
-      
     </>
   );
 };

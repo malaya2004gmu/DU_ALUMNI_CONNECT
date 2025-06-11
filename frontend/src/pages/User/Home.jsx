@@ -1,6 +1,5 @@
 import React from "react";
 import Slider from "../../components/Home/Slider";
-import Footer from "../../components/Footer";
 import HeroSection from "../../components/Home/HeroSection";
 import FeatureSection from "../../components/Home/FeaturesSection";
 import UpcomingEvents from "../../components/Home/UpcomingEvents";

@@ -21,6 +21,8 @@ const images = [
 ];
 
 const Slider = () => {
+  const isLoggedIn = localStorage.getItem("user"); // Change if you're using other auth
+
   return (
     <div
       id="carouselExampleDark"
@@ -69,7 +71,7 @@ const Slider = () => {
                 }}
               />
 
-              {/* Gradient overlay */}
+              {/* Overlay gradient */}
               <div
                 className="position-absolute top-0 start-0 w-100 h-100"
                 style={{
@@ -81,11 +83,11 @@ const Slider = () => {
 
               {/* Caption */}
               <div
-                className="carousel-caption d-none d-md-block"
+                className="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
                 style={{ zIndex: 2 }}
               >
                 <h1
-                  className="display-4 fw-bold"
+                  className="display-4 fw-bold mb-4"
                   style={{
                     color: "#fff",
                     textShadow: "2px 2px 10px rgba(0,0,0,0.9)",
@@ -93,6 +95,24 @@ const Slider = () => {
                 >
                   {img.caption}
                 </h1>
+
+                {/* Show login/signup only if not logged in */}
+                {!isLoggedIn && (
+                  <div className="d-flex gap-3">
+                    <a
+                      href="/login"
+                      className="btn btn-outline-light btn-lg"
+                    >
+                      Login
+                    </a>
+                    <a
+                      href="/register"
+                      className="btn btn-primary btn-lg"
+                    >
+                      Sign Up
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>

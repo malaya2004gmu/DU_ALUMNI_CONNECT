@@ -269,3 +269,14 @@ exports.deleteJob =async(req,res)=>{
     res.status(500).json({ error: "Failed to delete job post" });
   }
 };
+exports.allUser =async(req,res)=>{
+
+  try{
+    const users = await User.find({role :{$ne:"admin"}}).select("-password");
+    res.status(200).json(users);
+  }
+  catch(err)
+  {
+    res.status(500).json({message:"server error in finding all user"});
+  }
+}

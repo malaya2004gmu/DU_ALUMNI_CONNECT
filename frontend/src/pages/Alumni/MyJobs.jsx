@@ -1,26 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { authFetch } from "../../utils/authFetch"; 
-
+import { authFetch } from "../../utils/authFetch";
 
 const MyJobs = () => {
   const [jobs, setJobs] = useState([]);
-  const { user,loading } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(loading)return;
+    if (loading) return;
     if (!user || user.role !== "alumni") {
       navigate("/login");
     }
-  }, [user,loading, navigate]);
+  }, [user, loading, navigate]);
 
-  useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/alumni/my-jobs")
+  const fetchJobs = () => {
+    authFetch("http://localhost:5000/api/alumni/my-jobs")
       .then((res) => res.json())
       .then((data) => setJobs(data));
+  };
+
+  useEffect(() => {
+    fetchJobs();
   }, []);
+
+  const handleDelete = async (jobId) => {
+    if (!window.confirm("Are you sure you want to delete this job?")) return;
+    try {
+      const res = await authFetch(`http://localhost:5000/api/alumni/delete-job/${jobId}`, {
+        method: "DELETE",
+      });
+      if (res.status===200) {
+        setJobs((prev) => prev.filter((job) => job._id !== jobId));
+      } else {
+        alert("Failed to delete job.");
+      }
+    } catch (err) {
+      alert("Error deleting job.");
+    }
+  };
 
   return (
     <>
@@ -31,25 +50,26 @@ const MyJobs = () => {
             <table className="min-w-full text-sm text-left border">
               <thead className="bg-blue-50 text-blue-800 font-semibold">
                 <tr>
-                  <th className=" px-4 py-3">Title</th>
-                  <th className=" px-4 py-3">Company</th>
-                  <th className=" px-4 py-3">Location</th>
-                  <th className=" px-4 py-3">Salary</th>
-                  <th className=" px-4 py-3">Description</th>
-                  <th className=" px-4 py-3">Status</th>
+                  <th className="px-4 py-3">Title</th>
+                  <th className="px-4 py-3">Company</th>
+                  <th className="px-4 py-3">Location</th>
+                  <th className="px-4 py-3">Salary</th>
+                  <th className="px-4 py-3">Description</th>
+                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {Array.isArray(jobs) && jobs.length > 0 ? (
                   jobs.map((job) => (
                     <tr key={job._id} className="hover:bg-gray-50">
-                      <td className=" px-4 py-2 text-gray-900">{job.title}</td>
-                      <td className=" px-4 py-2 text-gray-700">{job.company}</td>
-                      <td className=" px-4 py-2 text-gray-700">{job.location}</td>
-                      <td className=" px-4 py-2 text-gray-700">₹ {job.salary}</td>
-                      <td className=" px-4 py-2 text-gray-700">{job.description}</td>
+                      <td className="px-4 py-2 text-gray-900">{job.title}</td>
+                      <td className="px-4 py-2 text-gray-700">{job.company}</td>
+                      <td className="px-4 py-2 text-gray-700">{job.location}</td>
+                      <td className="px-4 py-2 text-gray-700">₹ {job.salary}</td>
+                      <td className="px-4 py-2 text-gray-700">{job.description}</td>
                       <td
-                        className={` px-4 py-2 font-semibold ${
+                        className={`px-4 py-2 font-semibold ${
                           job.status === "pending"
                             ? "text-yellow-600"
                             : job.status === "rejected"
@@ -59,11 +79,19 @@ const MyJobs = () => {
                       >
                         {job.status}
                       </td>
+                      <td className="px-4 py-2">
+                        <button
+                          onClick={() => handleDelete(job._id)}
+                          className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" className="text-center py-6 text-gray-500">
+                    <td colSpan="7" className="text-center py-6 text-gray-500">
                       You haven’t posted any jobs yet.
                     </td>
                   </tr>
@@ -73,7 +101,6 @@ const MyJobs = () => {
           </div>
         </main>
       </div>
-      
     </>
   );
 };
