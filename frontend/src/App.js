@@ -27,6 +27,7 @@ import DeleteJob from "./pages/admin/mngjob/DeleteJob";
 import ChatPage from "./pages/Chat/ChatPage";
 import { ChatProvider } from "./context/ChatContext";
 import {useAuth} from "./context/AuthContext";
+import NotFound from "./pages/Error";
 function App() {
   const {user}=useAuth();
   return (
@@ -59,9 +60,11 @@ function App() {
             <Route path="/admin/delete-job" element={<DeleteJob />} />
             {/* Add your chat route here, with real user IDs or from context */}
             <Route path="/chat" element={user?<ChatPage currentUserId={user._id} />:<Login/>} />
+            <Route path="*" element={<NotFound/>}/>
           </Routes>
         </Layout>
       </ChatProvider>
+      
     </BrowserRouter>
   );
 }
