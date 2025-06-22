@@ -15,7 +15,7 @@ const {
   getReports,
   deleteJob,
   allUser,
-} = require("../controllers/adminController");
+} = require("../controllers/admin.controller");
 // const {verifyToken} = require("../middleware/auth");
 router.get("/alumni", getAlumni);
 router.get("/job-posts", getJobPosts);

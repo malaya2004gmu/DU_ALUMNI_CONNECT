@@ -4,7 +4,6 @@ const jobPost =require("../models/jobPost");
 exports.getMyJobs =async (req,res)=>{
    
     try{
-        //console.log( "user :",req.user);
         const userId= req.user._id;
         const jobs =await jobPost.find({postedBy:userId});
         res.status(200).json(jobs);

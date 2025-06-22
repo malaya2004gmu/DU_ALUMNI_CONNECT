@@ -46,10 +46,6 @@ exports.addCourse = async (req, res) => {
 };
 
 exports.addJobPost = async (req, res) => {
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({ errors: errors.array() });
-  // }
 
   try {
     const { title, description, company, location, salary ,applyLink} = req.body;

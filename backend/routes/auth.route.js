@@ -5,7 +5,7 @@ const {
   login,
   handleRegister,
   updateProfile,
-} = require("../controllers/authController");
+} = require("../controllers/auth.controller");
 
 const { verifyToken } = require("../middleware/auth");
 router.post("/login", login);

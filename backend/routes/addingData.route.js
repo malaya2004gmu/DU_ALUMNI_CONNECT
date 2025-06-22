@@ -4,7 +4,7 @@ const {
   addEvent,
   addCourse,
   addJobPost,
-} = require("../controllers/addingDataController");
+} = require("../controllers/addingData.controller");
 const { verifyToken } = require("../middleware/auth");
 const upload = require("../middleware/uploads");
 

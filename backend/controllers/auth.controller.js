@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+require('dotenv').config();
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, "MalayaDu2004", {
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.ACCESS_TOKEN, {
       expiresIn: "1h",
     });
 
