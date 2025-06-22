@@ -10,8 +10,7 @@ const http = require("http");
 const { Server } = require("socket.io"); 
 const ChatRoutes =require("./routes/chat.route");
 const app = express();
-const mongoSanitize=require('express-mongo-sanitize');
-const xss=require('xss-clean');
+
 const server = http.createServer(app); 
 const limiter=require("./utils/limiter");
 const helmet =require('helmet');
@@ -32,9 +31,8 @@ mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB");
 });
-app.use(limiter);
-app.use(mongoSanitize());//prevent nosql injection
-app.use(xss());//prevent xss attacks
+
+
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminDashboardRoutes);
 app.use("/api/alumni", alumniRoutes);
@@ -44,7 +42,7 @@ app.use("/api/chat",ChatRoutes);
 
 socketHandlers(io);
 
-
-server.listen(5000, () => {
+const PORT= process.env.PORT || 5000;
+server.listen(PORT, () => {
   console.log("Server running on port 5000");
 });

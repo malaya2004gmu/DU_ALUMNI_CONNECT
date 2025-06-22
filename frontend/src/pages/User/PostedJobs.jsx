@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import { authFetch } from "../../utils/authFetch"; // Adjust the import path as necessary
 const PostedJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
+    authFetch("http://localhost:5000/api/admin/approved-jobs")
       .then((res) => res.json())
       .then((data) => setJobs(data));
 

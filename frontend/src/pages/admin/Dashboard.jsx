@@ -22,17 +22,18 @@ const Dashboard = () => {
     pendingJobCount: 0,
     jobPostCount: 0,
     alumniCount: 0,
+    studentCount:0,
   });
 
   useEffect(() => {
     if(loading) return; // Wait until loading is complete
     if ( !user || user.role !== "admin") {
-      navigate("/login");
+      navigate("/error");
     }
   }, [user,loading, navigate]);
   
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/stat")
+    authFetch("http://localhost:5000/api/admin/stat")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
@@ -83,6 +84,13 @@ const Dashboard = () => {
             color="bg-yellow-600"
             icon={<FaUsers />}
             onViewDetails={() => navigate("/admin/alumni")}
+          />
+          <DashboardCard
+            title="Total Students"
+            count={data.studentCount || 0}
+            color="bg-yellow-600"
+            icon={<FaUsers />}
+            onViewDetails={() => navigate("/admin/students")}
           />
         </div>
       </main>

@@ -24,7 +24,7 @@ const MyProfile = () => {
         course: user.course || "",
         year: user.year || "",
       });
-      setPreview(user.photo ? `https://du-alumni-connect.onrender.com/${user.photo}` : "");
+      setPreview(user.photo ? `http://localhost:5000/${user.photo}` : "");
     }
   }, [user]);
 
@@ -48,7 +48,7 @@ const MyProfile = () => {
     if (photoFile) data.append("photo", photoFile);
 
     try {
-      const res = await authFetch("https://du-alumni-connect.onrender.com/api/auth/profile", {
+      const res = await authFetch("http://localhost:5000/api/auth/profile", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

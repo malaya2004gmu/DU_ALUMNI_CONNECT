@@ -78,7 +78,7 @@ const Navbar = () => {
           {user ? (
             <>
               <img
-                src={user.photo ? `https://du-alumni-connect.onrender.com/${user.photo}` : "/images/demoprofile.png"}
+                src={user.photo ? `http://localhost:5000/${user.photo}` : "/images/demoprofile.png"}
                 alt="Profile"
                 className="w-9 h-9 rounded-full border-2 border-white object-cover"
               />

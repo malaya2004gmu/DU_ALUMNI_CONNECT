@@ -8,6 +8,7 @@ import ManageCourses from "./pages/admin/ManageCourse";
 import ManageEvents from "./pages/admin/ManagaEvents";
 import ManageJobs from "./pages/admin/ManageJob";
 import ManageAlumni from "./pages/admin/ManageAlumni";
+import ManageStudents from "./pages/admin/ManageStudents";
 import PostJob from "./pages/Alumni/PostJob";
 import Myjobs from "./pages/Alumni/MyJobs";
 import MyProfile from "./pages/Alumni/MyProfile";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/admin/events" element={<ManageEvents />} />
             <Route path="/admin/job-posts" element={<ManageJobs />} />
             <Route path="/admin/alumni" element={<ManageAlumni />} />
+            <Route path="/admin/students" element={<ManageStudents />} />
             <Route path="/alumni/post-job" element={<PostJob />} />
             <Route path="/alumni/profile" element={<MyProfile />} />
             <Route path="/alumni/my-jobs" element={<Myjobs />} />

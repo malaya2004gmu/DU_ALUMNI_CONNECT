@@ -27,7 +27,7 @@ const Testimonial=()=>{
         setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
         setAnimate(true);
       }, 400); // match the animation duration
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [testimonials.length]);
     return (

@@ -15,7 +15,15 @@ exports.getAlumni = async (req, res) => {
     res.status(500).json({ message: "Server error while retriving user data" });
   }
 };
-
+exports.getStudents= async(req,res)=>{
+  try {
+    const students = await User.find({ role: "user" }).select("-password");
+    res.status(200).json(students);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error while retrieving user data" });
+  }
+}
 exports.getJobPosts = async (req, res) => {
   try {
     const jobPosts = await JobPost.find({})
@@ -58,13 +66,15 @@ exports.getStatistics = async (req, res) => {
     const courseCount = await Course.countDocuments();
     const approvedJobCount =await JobPost.countDocuments({status:"approved"});
     const pendingJobCount =await JobPost.countDocuments({status:"rejected"});
+    const studentCount = await User.countDocuments({ role: "user" });
     res.status(200).json({
       alumniCount,
       jobPostCount,
       eventCount,
       courseCount,
       approvedJobCount,
-      pendingJobCount
+      pendingJobCount,
+      studentCount,
     });
   } catch (err) {
     console.error(err);
@@ -227,7 +237,7 @@ exports.setRejectJob=async(req,res)=>{
 };
 
 exports.getReports=async(req,res)=>{
-  const { role, fromDate, course, year } = req.query;
+  const { role, fromDate, course, batchYear } = req.query;
   const query = {};
 
   if (role) {
@@ -239,8 +249,8 @@ exports.getReports=async(req,res)=>{
   if (course) {
     query.course = course;
   }
-  if (year) {
-    query.year = year;
+  if (batchYear) {
+    query.year = String(batchYear);
   }
 
   try {

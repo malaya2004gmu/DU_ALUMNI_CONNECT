@@ -11,12 +11,12 @@ const ManageEvents = () => {
   useEffect(() => {
     if(loading) return;
     if (!user || user.role !== "admin") {
-      navigate("/login");
+      navigate("/error");
     }
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/events")
+    authFetch("http://localhost:5000/api/admin/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);

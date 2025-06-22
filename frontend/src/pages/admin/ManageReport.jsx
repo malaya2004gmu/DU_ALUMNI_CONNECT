@@ -18,13 +18,13 @@ const Reports = () => {
 
   const fetchReports = async () => {
     const query = new URLSearchParams(filters).toString();
-    const res = await authFetch(`https://du-alumni-connect.onrender.com/api/admin/reports?${query}`);
+    const res = await authFetch(`http://localhost:5000/api/admin/reports?${query}`);
     const data = await res.json();
     setReportData(data);
   };
 
   const fetchCourses = async () => {
-    const res = await authFetch("https://du-alumni-connect.onrender.com/api/admin/courses");
+    const res = await authFetch("http://localhost:5000/api/admin/courses");
     const data = await res.json();
     setCourses(data);
   };
@@ -123,7 +123,7 @@ const Reports = () => {
                     <td className="px-4 py-2">{user.email}</td>
                     <td className="px-4 py-2 capitalize">{user.role}</td>
                     <td className="px-4 py-2">{user.course || "-"}</td>
-                    <td className="px-4 py-2">{user.batchYear || "-"}</td>
+                    <td className="px-4 py-2">{user.year || "-"}</td>
                     <td className="px-4 py-2">
                       {new Date(user.createdAt).toLocaleDateString()}
                     </td>

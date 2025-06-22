@@ -11,12 +11,12 @@ const ManageCourses = () => {
   useEffect(() => {
     if(loading)return;
     if (!user || user.role !== "admin") {
-      navigate("/login");
+      navigate("/error");
     }
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/courses")
+    authFetch("http://localhost:5000/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
