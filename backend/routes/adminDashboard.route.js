@@ -16,20 +16,20 @@ const {
   deleteJob,
   allUser,
 } = require("../controllers/admin.controller");
-// const {verifyToken} = require("../middleware/auth");
-router.get("/alumni", getAlumni);
-router.get("/job-posts", getJobPosts);
-router.get("/approved-jobs", getApprovedJob);
+ const {verifyToken} = require("../middleware/auth");
+router.get("/alumni",verifyToken, getAlumni);
+router.get("/job-posts",verifyToken, getJobPosts);
+router.get("/approved-jobs",verifyToken, getApprovedJob);
 router.get("/events",getEvents);
 router.get("/event-details/:id", getEventDetails);
-router.get("/courses",getCourses);
-router.get("/stat", getStatistics);
-router.get("/reports",getReports);
-router.post("/add-course",addCourse);
-router.delete("/delete-course/:id",deleteCourse);
-router.delete("/delete-event/:id",deleteEvent);
-router.delete("/delete-job/:id",deleteJob);
-router.put("/approve-job/:id",setApproveJob);
-router.put("/reject-job/:id",setRejectJob);
-router.get("/alluser",allUser);
+router.get("/courses",verifyToken,getCourses);
+router.get("/stat",verifyToken, getStatistics);
+router.get("/reports",verifyToken,getReports);
+router.post("/add-course",verifyToken,addCourse);
+router.delete("/delete-course/:id",verifyToken,deleteCourse);
+router.delete("/delete-event/:id",verifyToken,deleteEvent);
+router.delete("/delete-job/:id",verifyToken,deleteJob);
+router.put("/approve-job/:id",verifyToken,setApproveJob);
+router.put("/reject-job/:id",verifyToken,setRejectJob);
+router.get("/alluser",verifyToken,allUser);
 module.exports = router;
