@@ -16,7 +16,7 @@ const ChatPage = ({ currentUserId }) => {
 
   // Fetch users except current user
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/alluser")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/alluser")
       .then((res) => res.json())
       .then((data) =>
         setUsers(data.filter((u) => String(u._id) !== String(currentUserId)))
@@ -28,7 +28,7 @@ const ChatPage = ({ currentUserId }) => {
     const fetchChatHistory = async () => {
       if (!chatWithUserId) return;
       const res = await authFetch(
-        `http://localhost:5000/api/chat/history?user1=${currentUserId}&user2=${chatWithUserId._id}`
+        `https://du-alumni-connect.onrender.com/api/chat/history?user1=${currentUserId}&user2=${chatWithUserId._id}`
       );
       const data = await res.json();
       setMessages(data.messages);
@@ -66,7 +66,7 @@ const ChatPage = ({ currentUserId }) => {
     };
 
     try {
-      await fetch("http://localhost:5000/api/chat/message", {
+      await fetch("https://du-alumni-connect.onrender.com/api/chat/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(msgObj),

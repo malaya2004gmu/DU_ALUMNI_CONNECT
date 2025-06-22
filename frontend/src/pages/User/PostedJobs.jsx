@@ -5,7 +5,7 @@ const PostedJobs = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/approved-jobs")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
       .then((res) => res.json())
       .then((data) => setJobs(data));
 

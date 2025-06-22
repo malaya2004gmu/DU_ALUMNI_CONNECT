@@ -16,13 +16,13 @@ const ManageJobs = () => {
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/job-posts")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/job-posts")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);
 
   const handleApprove = (jobId) => {
-    authFetch(`http://localhost:5000/api/admin/approve-job/${jobId}`, {
+    authFetch(`https://du-alumni-connect.onrender.com/api/admin/approve-job/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const ManageJobs = () => {
   };
 
   const handleReject = (jobId) => {
-    authFetch(`http://localhost:5000/api/admin/reject-job/${jobId}`, {
+    authFetch(`https://du-alumni-connect.onrender.com/api/admin/reject-job/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

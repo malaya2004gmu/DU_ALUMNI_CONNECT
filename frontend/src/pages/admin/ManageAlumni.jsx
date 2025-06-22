@@ -16,7 +16,7 @@ const ManageAlumni = () => {
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/alumni")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/alumni")
       .then((res) => res.json())
       .then((data) => setAlumni(data));
   }, []);

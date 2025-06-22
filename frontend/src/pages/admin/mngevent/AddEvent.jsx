@@ -19,7 +19,7 @@ const AddEvent = () => {
     if (image) formData.append("image", image);
 
     try {
-      const res = await authFetch("http://localhost:5000/api/add/event", {
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/add/event", {
         method: "POST",
         body: formData,
       });

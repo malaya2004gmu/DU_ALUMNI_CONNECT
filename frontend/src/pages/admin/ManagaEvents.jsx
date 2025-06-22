@@ -16,7 +16,7 @@ const ManageEvents = () => {
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/events")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);

@@ -33,7 +33,7 @@ const Dashboard = () => {
   }, [user,loading, navigate]);
   
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/stat")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/stat")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
