@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-
+import { authFetch } from "../../../utils/authFetch";
 const ApprovedJobs = () => {
   const [approvedJobs, setApprovedJobs] = useState([]);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter((job) => job.status === "approved");

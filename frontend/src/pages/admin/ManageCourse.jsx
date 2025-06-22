@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Sidebar from "../../components/Sidebar";
-
+import { authFetch } from "../../utils/authFetch";
 const ManageCourses = () => {
   const { user,loading } = useAuth();
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const ManageCourses = () => {
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/courses")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);

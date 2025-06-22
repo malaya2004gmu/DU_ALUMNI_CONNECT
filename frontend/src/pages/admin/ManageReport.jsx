@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 
+import { authFetch } from "../../utils/authFetch";
 const Reports = () => {
   const [filters, setFilters] = useState({
     role: "",
@@ -17,13 +18,13 @@ const Reports = () => {
 
   const fetchReports = async () => {
     const query = new URLSearchParams(filters).toString();
-    const res = await fetch(`https://du-alumni-connect.onrender.com/api/admin/reports?${query}`);
+    const res = await authFetch(`https://du-alumni-connect.onrender.com/api/admin/reports?${query}`);
     const data = await res.json();
     setReportData(data);
   };
 
   const fetchCourses = async () => {
-    const res = await fetch("https://du-alumni-connect.onrender.com/api/admin/courses");
+    const res = await authFetch("https://du-alumni-connect.onrender.com/api/admin/courses");
     const data = await res.json();
     setCourses(data);
   };

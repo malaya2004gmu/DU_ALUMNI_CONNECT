@@ -3,7 +3,7 @@ import DashboardCard from "../../components/DashboardCard";
 import Sidebar from "../../components/Sidebar";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { authFetch } from "../../utils/authFetch";
 import {
   FaUsers,
   FaClipboardList,
@@ -32,7 +32,7 @@ const Dashboard = () => {
   }, [user,loading, navigate]);
   
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/stat")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/stat")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);

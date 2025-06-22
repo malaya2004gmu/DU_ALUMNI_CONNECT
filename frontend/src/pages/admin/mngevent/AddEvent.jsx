@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { authFetch } from "../../../utils/authFetch";
 const AddEvent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -19,7 +19,7 @@ const AddEvent = () => {
     if (image) formData.append("image", image);
 
     try {
-      const res = await fetch("https://du-alumni-connect.onrender.com/api/add/event", {
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/add/event", {
         method: "POST",
         body: formData,
       });

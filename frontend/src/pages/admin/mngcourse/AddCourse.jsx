@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { authFetch } from "../../../utils/authFetch"; 
 const AddCourse = () => {
   const [courseName, setCourseName] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
@@ -12,7 +12,7 @@ const AddCourse = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://du-alumni-connect.onrender.com/api/admin/add-course", {
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/admin/add-course", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

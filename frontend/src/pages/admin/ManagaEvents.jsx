@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Sidebar from "../../components/Sidebar";
-
+import { authFetch } from "../../utils/authFetch";
 const ManageEvents = () => {
   const [events, setEvents] = useState([]);
   const { user,loading } = useAuth();
@@ -16,7 +16,7 @@ const ManageEvents = () => {
   }, [user,loading, navigate]);
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/events")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);

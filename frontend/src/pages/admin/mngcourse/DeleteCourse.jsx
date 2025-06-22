@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { authFetch } from "../../../utils/authFetch"; 
 const DeleteCourse = () => {
   const [courses, setCourses] = useState([]);
   const [message, setMessage] = useState("");
@@ -7,13 +8,13 @@ const DeleteCourse = () => {
 
   useEffect(() => {
     // Fetch all courses from backend
-    fetch("https://du-alumni-connect.onrender.com/api/admin/courses")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
 
   const handleDelete = async (id) => {
-    const res = await fetch(`https://du-alumni-connect.onrender.com/api/admin/delete-course/${id}`, {
+    const res = await authFetch(`https://du-alumni-connect.onrender.com/api/admin/delete-course/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {
