@@ -1,7 +1,8 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require('dotenv').config();
+const Course=require("../models/course");
+
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -103,6 +104,14 @@ exports.updateProfile = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+exports.courses = async (req, res) => {
+  try {
+    const courses = await Course.find().select("name"); // Only select the 'name' field
+    res.json(courses);
+  } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
 };

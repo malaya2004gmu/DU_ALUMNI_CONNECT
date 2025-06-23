@@ -12,7 +12,7 @@ const AddCourse = () => {
     e.preventDefault();
 
     try {
-      const res = await authFetch("https://du-alumni-connect.onrender.com/api/admin/add-course", {
+      const res = await authFetch("http://localhost:5000/api/admin/add-course", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

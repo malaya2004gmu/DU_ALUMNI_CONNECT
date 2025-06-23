@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { authFetch } from "../../../utils/authFetch"; 
 const DeleteCourse = () => {
   const [courses, setCourses] = useState([]);
@@ -7,14 +6,13 @@ const DeleteCourse = () => {
   
 
   useEffect(() => {
-    // Fetch all courses from backend
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/courses")
+    authFetch("http://localhost:5000/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
 
   const handleDelete = async (id) => {
-    const res = await authFetch(`https://du-alumni-connect.onrender.com/api/admin/delete-course/${id}`, {
+    const res = await authFetch(`http://localhost:5000/api/admin/delete-course/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {

@@ -29,6 +29,7 @@ import ChatPage from "./pages/Chat/ChatPage";
 import { ChatProvider } from "./context/ChatContext";
 import {useAuth} from "./context/AuthContext";
 import NotFound from "./pages/Error";
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   const {user}=useAuth();
   return (
@@ -39,27 +40,27 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/courses" element={<ManageCourses />} />
-            <Route path="/admin/events" element={<ManageEvents />} />
-            <Route path="/admin/job-posts" element={<ManageJobs />} />
-            <Route path="/admin/alumni" element={<ManageAlumni />} />
-            <Route path="/admin/students" element={<ManageStudents />} />
-            <Route path="/alumni/post-job" element={<PostJob />} />
-            <Route path="/alumni/profile" element={<MyProfile />} />
-            <Route path="/alumni/my-jobs" element={<Myjobs />} />
-            <Route path="/admin/add-course" element={<AddCourse />} />
-            <Route path="/admin/delete-course" element={<DeleteCourse />} />
-            <Route path="/admin/add-event" element={<AddEvent />} />
-            <Route path="/admin/delete-event" element={<DeleteEvent />} />
-            <Route path="/admin/reports" element={<Reports />} />
+            <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><Dashboard /></ProtectedRoute>} />
+            <Route path="/admin/courses" element={<ProtectedRoute allowedRoles={["admin"]}><ManageCourses /></ProtectedRoute>} />
+            <Route path="/admin/events" element={<ProtectedRoute allowedRoles={["admin"]}><ManageEvents /></ProtectedRoute>} />
+            <Route path="/admin/job-posts" element={<ProtectedRoute allowedRoles={["admin"]}><ManageJobs /></ProtectedRoute>} />
+            <Route path="/admin/alumni" element={<ProtectedRoute allowedRoles={["admin"]}><ManageAlumni /></ProtectedRoute>} />
+            <Route path="/admin/students" element={<ProtectedRoute allowedRoles={["admin"]}><ManageStudents /></ProtectedRoute>} />
+            <Route path="/admin/add-course" element={<ProtectedRoute allowedRoles={["admin"]}><AddCourse /></ProtectedRoute>} />
+            <Route path="/admin/delete-course" element={<ProtectedRoute allowedRoles={["admin"]}><DeleteCourse /></ProtectedRoute>} />
+            <Route path="/admin/add-event" element={<ProtectedRoute allowedRoles={["admin"]}><AddEvent /></ProtectedRoute>} />
+            <Route path="/admin/delete-event" element={<ProtectedRoute allowedRoles={["admin"]}><DeleteEvent /></ProtectedRoute>} />
+            <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={["admin"]}><Reports /></ProtectedRoute>} />
             <Route path="/events" element={<Events />} />
             <Route path="/posted-jobs" element={<PostedJobs />} />
             <Route path="/events/:eventId" element={<EventDetails />} />
             <Route path="/footer" element={<Footer />} />
             <Route path="/admin/approved-jobs" element={<ApprovedJobs />} />
-            <Route path="/admin/rejected-jobs" element={<RejectedJobs />} />
-            <Route path="/admin/delete-job" element={<DeleteJob />} />
+            <Route path="/admin/rejected-jobs" element={<ProtectedRoute allowedRoles={["admin"]}><RejectedJobs /></ProtectedRoute>} />
+            <Route path="/admin/delete-job" element={<ProtectedRoute allowedRoles={["admin"]}><DeleteJob /></ProtectedRoute>} />
+            <Route path="/alumni/post-job" element={<ProtectedRoute allowedRoles={["alumni"]}><PostJob /></ProtectedRoute>} />
+            <Route path="/alumni/profile" element={<ProtectedRoute allowedRoles={["alumni","user"]}><MyProfile /></ProtectedRoute>} />
+            <Route path="/alumni/my-jobs" element={<ProtectedRoute allowedRoles={["alumni"]}><Myjobs /></ProtectedRoute>} />
             {/* Add your chat route here, with real user IDs or from context */}
             <Route path="/chat" element={user?<ChatPage currentUserId={user._id} />:<Login/>} />
             <Route path="*" element={<NotFound/>}/>

@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import Sidebar from "../../components/Sidebar";
 import { authFetch } from "../../utils/authFetch";
 const ManageJobs = () => {
   const [jobs, setJobs] = useState([]);
-  const { user ,loading} = useAuth();
-  const navigate = useNavigate();
-
   useEffect(() => {
-    if(loading)return;
-    if (!user || user.role !== "admin") {
-      navigate("/error");
-    }
-  }, [user,loading, navigate]);
-
-  useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/job-posts")
+    authFetch("http://localhost:5000/api/admin/job-posts")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);
 
   const handleApprove = (jobId) => {
-    authFetch(`https://du-alumni-connect.onrender.com/api/admin/approve-job/${jobId}`, {
+    authFetch(`http://localhost:5000/api/admin/approve-job/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +31,7 @@ const ManageJobs = () => {
   };
 
   const handleReject = (jobId) => {
-    authFetch(`https://du-alumni-connect.onrender.com/api/admin/reject-job/${jobId}`, {
+    authFetch(`http://localhost:5000/api/admin/reject-job/${jobId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

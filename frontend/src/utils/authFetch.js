@@ -10,7 +10,7 @@ export async function authFetch(url, options = {}) {
   if (response.status === 401) {
     // Token expired or invalid
     localStorage.removeItem("token");
-    window.location.href = "/login"; // Redirect to login
+    window.location.href = "/"; // Redirect to login
     return;
   }
 

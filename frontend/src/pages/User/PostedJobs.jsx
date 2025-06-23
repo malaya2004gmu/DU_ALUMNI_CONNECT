@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { authFetch } from "../../utils/authFetch"; // Adjust the import path as necessary
+const { authFetch } = require( "../../utils/authFetch"); 
 const PostedJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
-      .then((res) => res.json())
-      .then((data) => setJobs(data));
+    authFetch("http://localhost:5000/api/admin/approved-jobs")
+      .then((res) => {
+        if(!res) return;
+        return res.json();
+      })
+      .then((data) => {
+        if(data)setJobs(data);
+      });
 
     //  Check if user is logged in (e.g., check localStorage for token or userId)
     const user = localStorage.getItem("user");
@@ -25,7 +30,7 @@ const PostedJobs = () => {
           </h2>
 
           <div className="overflow-x-auto shadow-md rounded-lg bg-white p-4">
-            {jobs.length === 0 ? (
+            { jobs.length === 0  ? (
               <div className="text-center text-gray-500 p-4">No job yet</div>
             ) : (
               <table className="min-w-full overflow-x-auto table-auto text-sm text-gray-700">

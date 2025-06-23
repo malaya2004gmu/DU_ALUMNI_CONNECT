@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const UpcomingEvents =()=>{
       const [events, setEvents] = useState([]);
        useEffect(() => {
-         fetch("https://du-alumni-connect.onrender.com/api/admin/events")
+         fetch("http://localhost:5000/api/admin/events")
            .then((res) => res.json())
            .then((data) => setEvents(data));
        }, []);

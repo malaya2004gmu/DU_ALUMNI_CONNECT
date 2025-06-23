@@ -18,13 +18,13 @@ const Reports = () => {
 
   const fetchReports = async () => {
     const query = new URLSearchParams(filters).toString();
-    const res = await authFetch(`https://du-alumni-connect.onrender.com/api/admin/reports?${query}`);
+    const res = await authFetch(`http://localhost:5000/api/admin/reports?${query}`);
     const data = await res.json();
     setReportData(data);
   };
 
   const fetchCourses = async () => {
-    const res = await authFetch("https://du-alumni-connect.onrender.com/api/admin/courses");
+    const res = await authFetch("http://localhost:5000/api/admin/courses");
     const data = await res.json();
     setCourses(data);
   };

@@ -21,7 +21,7 @@ const {
 const isAdmin = require("../middleware/isAdmin");
 router.get("/alumni",verifyToken,isAdmin, getAlumni);
 router.get("/job-posts",verifyToken, getJobPosts);
-router.get("/approved-jobs",verifyToken, getApprovedJob);
+router.get("/approved-jobs", getApprovedJob);
 router.get("/events",getEvents);
 router.get("/event-details/:id", getEventDetails);
 router.get("/courses",verifyToken,isAdmin,getCourses);

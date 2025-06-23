@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import { authFetch } from "../../utils/authFetch";
-
-
 const PostJob = () => {
-  const { user} = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "",
@@ -22,12 +18,9 @@ const PostJob = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!user || user.role !== "alumni") {
-      alert("Only alumni can post jobs.");
-      return;
-    }
+    
     try {
-      const res = await authFetch("https://du-alumni-connect.onrender.com/api/add/job-post", {
+      const res = await authFetch("http://localhost:5000/api/add/job-post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

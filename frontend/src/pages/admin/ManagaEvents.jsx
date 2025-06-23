@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+
 import Sidebar from "../../components/Sidebar";
 import { authFetch } from "../../utils/authFetch";
 const ManageEvents = () => {
   const [events, setEvents] = useState([]);
-  const { user,loading } = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if(loading) return;
-    if (!user || user.role !== "admin") {
-      navigate("/error");
-    }
-  }, [user,loading, navigate]);
-
-  useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/events")
+    authFetch("http://localhost:5000/api/admin/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);
