@@ -17,7 +17,7 @@ const Signup = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/auth/user/courses");
+        const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/user/courses");
         const data = await res.json();
         setCourses(data);
       } catch (error) {
@@ -55,7 +55,7 @@ const Signup = () => {
     if (photo) data.append("photo", photo);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/register", {
         method: "POST",
         body: data,
       });

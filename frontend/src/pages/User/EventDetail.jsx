@@ -7,7 +7,7 @@ const EventDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/admin/event-details/${eventId}`)
+    fetch(`https://du-alumni-connect.onrender.com/api/admin/event-details/${eventId}`)
       .then((res) => res.json())
       .then((data) => setEvent(data))
       .catch(() => setEvent(null));
@@ -41,7 +41,7 @@ const EventDetails = () => {
         {event.photo && (
           <div className="mb-4 flex justify-center">
             <img
-              src={`http://localhost:5000/${event.photo}`}
+              src={`https://du-alumni-connect.onrender.com/${event.photo}`}
               alt={event.title}
               className="max-h-100 rounded shadow"
             />

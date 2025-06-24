@@ -6,13 +6,13 @@ const DeleteEvent = () => {
   
 
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/events")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);
 
   const handleDelete = async (id) => {
-    const res = await authFetch(`http://localhost:5000/api/admin/delete-event/${id}`, {
+    const res = await authFetch(`https://du-alumni-connect.onrender.com/api/admin/delete-event/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {
