@@ -1,10 +1,10 @@
 import React ,{useEffect,useState} from "react";
 import { Link } from "react-router-dom";
-
+import { authFetch } from "../../utils/authFetch";
 const UpcomingEvents =()=>{
       const [events, setEvents] = useState([]);
        useEffect(() => {
-         fetch("https://du-alumni-connect.onrender.com/api/admin/events")
+         authFetch("http://localhost:5000/api/admin/events")
            .then((res) => res.json())
            .then((data) => setEvents(data));
        }, []);
@@ -19,7 +19,7 @@ const UpcomingEvents =()=>{
                 events.slice(0, 3).map((event) => (
                   <div
                     key={event._id}
-                    className="bg-white rounded-lg shadow hover:shadow-lg transition p-4"
+                    className="bg-white rounded-lg shadow-xl hover:shadow-blue-400  transition p-4  "
                   >
                     <h4 className="text-blue-700 font-semibold text-lg">
                      <marquee behavior="" direction="left">{event.title}</marquee> 

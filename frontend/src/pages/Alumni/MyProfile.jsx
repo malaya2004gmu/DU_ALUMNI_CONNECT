@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { authFetch } from "../../utils/authFetch";
+import { Camera, Edit3, Save, X, User, Phone, BookOpen, Calendar } from "lucide-react";
 
 const MyProfile = () => {
   const { user, login } = useAuth();
@@ -24,7 +25,7 @@ const MyProfile = () => {
         course: user.course || "",
         year: user.year || "",
       });
-      setPreview(user.photo ? `https://du-alumni-connect.onrender.com/${user.photo}` : "");
+      setPreview(user.photo ? `http://localhost:5000/${user.photo}` : "");
     }
   }, [user]);
 
@@ -48,7 +49,7 @@ const MyProfile = () => {
     if (photoFile) data.append("photo", photoFile);
 
     try {
-      const res = await authFetch("https://du-alumni-connect.onrender.com/api/auth/profile", {
+      const res = await authFetch("http://localhost:5000/api/auth/profile", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -69,145 +70,208 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 py-12 px-4">
-      <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden animate-fade-in">
-        <div className="grid md:grid-cols-3 gap-10 p-10">
-          <div className="flex flex-col items-center text-center md:col-span-1">
-            <img
-              src={preview || `https://ui-avatars.com/api/?name=${encodeURIComponent(form.name || "User")}&background=0D8ABC&color=fff`}
-              alt="Profile"
-              className="w-44 h-44 rounded-full object-cover border-4 border-blue-400 shadow-md mb-4"
-            />
-            <h2 className="text-3xl font-bold text-blue-800 mb-1">
-              {form.name}
-            </h2>
-            <p className="text-gray-600 text-lg">{user?.email}</p>
-            <p className="text-lg text-gray-500 capitalize">
-              Role: {user?.role}
-            </p>
-            {!editing && (
-              <button
-                onClick={() => setEditing(true)}
-                className="mt-5 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition font-medium animate-fade-in"
-              >
-                Edit Profile
-              </button>
-            )}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+            My Profile
+          </h1>
+          <p className="text-gray-600">Manage your personal information</p>
+        </div>
+
+        {/* Main Profile Card */}
+        <div className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl hover:shadow-blue-500 border border-white/20 overflow-hidden">
+          {/* Cover Section */}
+          <div className="h-32 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 relative">
+            <div className="absolute inset-0 bg-black/10"></div>
           </div>
 
-          {/* Details or Edit Form */}
-          <div className="md:col-span-2">
-            {!editing ? (
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    Full Name
-                  </h3>
-                  <p className="text-gray-700 text-lg">{form.name}</p>
+          {/* Profile Content */}
+          <div className="relative px-8 pb-8">
+            {/* Profile Picture Section */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 -mt-16 mb-8">
+              <div className="relative group">
+                <div className="w-32 h-32 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white">
+                  <img
+                    src={preview || `https://ui-avatars.com/api/?name=${encodeURIComponent(form.name || "User")}&background=6366f1&color=fff&size=128`}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">Email</h3>
-                  <p className="text-gray-700 text-lg">{user?.email}</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    Contact Number
-                  </h3>
-                  <p className="text-gray-700 text-lg">{form.contactNumber}</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    Course
-                  </h3>
-                  <p className="text-gray-700 text-lg">{form.course || "N/A"}</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    Year of Admission
-                  </h3>
-                  <p className="text-gray-700 text-lg">{form.year || "N/A"}</p>
+                {editing && (
+                  <label className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Camera className="w-6 h-6 text-white" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePhotoChange}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+              </div>
+
+              <div className="flex-1 text-center sm:text-left">
+                <h2 className="text-3xl font-bold text-gray-800 mb-1">
+                  {form.name || "Your Name"}
+                </h2>
+                <p className="text-gray-600 text-lg mb-2">{user?.email}</p>
+                <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full">
+                  <span className="text-sm font-medium text-blue-800 capitalize">
+                    {user?.role}
+                  </span>
                 </div>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 ">
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required
-                  />
+
+              {!editing && (
+                <button
+                  onClick={() => setEditing(true)}
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                >
+                  <Edit3 className="w-4 h-4" />
+                  Edit Profile
+                </button>
+              )}
+            </div>
+
+            {/* Content Section */}
+            <div className="grid lg:grid-cols-2 gap-8">
+              {!editing ? (
+                <>
+                  {/* Profile Information */}
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-4">Personal Information</h3>
+                    
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl">
+                        <User className="w-5 h-5 text-blue-600" />
+                        <div>
+                          <p className="text-sm text-gray-500">Full Name</p>
+                          <p className="font-medium text-gray-800">{form.name || "Not provided"}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl">
+                        <Phone className="w-5 h-5 text-green-600" />
+                        <div>
+                          <p className="text-sm text-gray-500">Contact Number</p>
+                          <p className="font-medium text-gray-800">{form.contactNumber || "Not provided"}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Academic Information */}
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-4">Academic Information</h3>
+                    
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl">
+                        <BookOpen className="w-5 h-5 text-purple-600" />
+                        <div>
+                          <p className="text-sm text-gray-500">Course</p>
+                          <p className="font-medium text-gray-800">{form.course || "Not provided"}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl">
+                        <Calendar className="w-5 h-5 text-orange-600" />
+                        <div>
+                          <p className="text-sm text-gray-500">Year of Admission</p>
+                          <p className="font-medium text-gray-800">{form.year || "Not provided"}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="lg:col-span-2">
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-6">Edit Profile Information</h3>
+                    
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold text-gray-700">
+                          Full Name
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={form.name}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white/50 backdrop-blur-sm"
+                          placeholder="Enter your full name"
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold text-gray-700">
+                          Contact Number
+                        </label>
+                        <input
+                          type="text"
+                          name="contactNumber"
+                          value={form.contactNumber}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white/50 backdrop-blur-sm"
+                          placeholder="Enter your contact number"
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold text-gray-700">
+                          Course
+                        </label>
+                        <input
+                          type="text"
+                          name="course"
+                          value={form.course}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white/50 backdrop-blur-sm"
+                          placeholder="Enter your course"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold text-gray-700">
+                          Year of Admission
+                        </label>
+                        <input
+                          type="text"
+                          name="year"
+                          value={form.year}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white/50 backdrop-blur-sm"
+                          placeholder="Enter admission year"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-4 pt-6 border-t border-gray-200">
+                      <button
+                        type="submit"
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                      >
+                        <Save className="w-4 h-4" />
+                        Save Changes
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setEditing(false)}
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white px-6 py-3 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                      >
+                        <X className="w-4 h-4" />
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1">
-                    Contact Number
-                  </label>
-                  <input
-                    type="text"
-                    name="contactNumber"
-                    value={form.contactNumber}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1">
-                    Course
-                  </label>
-                  <input
-                    type="text"
-                    name="course"
-                    value={form.course}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1">
-                    Year of Admission
-                  </label>
-                  <input
-                    type="text"
-                    name="year"
-                    value={form.year}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-1 ">
-                    Profile Picture
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handlePhotoChange}
-                    className="w-full text-sm text-gray-500"
-                  />
-                </div>
-                <div className="flex gap-4">
-                  <button
-                    type="submit"
-                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition font-medium animate-fade-in"
-                  >
-                    Save Changes
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setEditing(false)}
-                    className="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition font-medium animate-fade-in"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

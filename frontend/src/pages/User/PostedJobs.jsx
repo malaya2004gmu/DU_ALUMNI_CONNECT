@@ -5,7 +5,7 @@ const PostedJobs = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
+    authFetch("http://localhost:5000/api/admin/approved-jobs")
       .then((res) => {
         if(!res) return;
         return res.json();
@@ -23,7 +23,7 @@ const PostedJobs = () => {
 
   return (
     <>
-      <div className="flex min-h-screen bg-gradient-to-b from-blue-50 to-white ">
+      <div className="flex min-h-screen bg-gradient-to-b from-blue-100 to-blue-50 ">
         <main className="flex-1 overflow-x-auto p-6 animate-fade-in">
           <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center">
             Explore Job Opportunities

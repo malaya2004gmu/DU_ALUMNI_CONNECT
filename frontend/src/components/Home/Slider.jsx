@@ -22,8 +22,28 @@ const images = [
 
 const Slider = () => {
   const isLoggedIn = localStorage.getItem("user"); // Change if you're using other auth
+return (
+  <div className="position-relative">
+    {/* ✅ DU Logo Floating Above Carousel */}
+   <img
+  src="/dulogonew.png"
+  alt="DU Logo"
+  style={{
+    position: "absolute",
+    top: "20px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "160px",             
+    height: "160px",            
+    borderRadius: "50%",        
+    border: "4px solid pink",  
+    boxShadow: "0 0 20px rgba(0,0,1,0.4)", 
+    zIndex: 3,
+  }}
+/>
 
-  return (
+
+    {/* ✅ The Bootstrap Carousel */}
     <div
       id="carouselExampleDark"
       className="carousel slide carousel-fade"
@@ -59,7 +79,6 @@ const Slider = () => {
                 overflow: "hidden",
               }}
             >
-              {/* Background image */}
               <img
                 src={img.src}
                 className="d-block w-100"
@@ -96,7 +115,6 @@ const Slider = () => {
                   {img.caption}
                 </h1>
 
-                {/* Show login/signup only if not logged in */}
                 {!isLoggedIn && (
                   <div className="d-flex gap-3">
                     <a
@@ -139,7 +157,9 @@ const Slider = () => {
         <span className="visually-hidden">Next</span>
       </button>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Slider;

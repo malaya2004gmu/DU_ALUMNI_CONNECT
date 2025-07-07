@@ -16,7 +16,7 @@ const ChatPage = ({ currentUserId }) => {
 
   // Fetch users except current user
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/alluser")
+    authFetch("http://localhost:5000/api/admin/alluser")
       .then((res) => res.json())
       .then((data) =>
         setUsers(data.filter((u) => String(u._id) !== String(currentUserId)))
@@ -28,7 +28,7 @@ const ChatPage = ({ currentUserId }) => {
     const fetchChatHistory = async () => {
       if (!chatWithUserId) return;
       const res = await authFetch(
-        `https://du-alumni-connect.onrender.com/api/chat/history?user1=${currentUserId}&user2=${chatWithUserId._id}`
+        `http://localhost:5000/api/chat/history?user1=${currentUserId}&user2=${chatWithUserId._id}`
       );
       const data = await res.json();
       setMessages(data.messages);
@@ -66,7 +66,7 @@ const ChatPage = ({ currentUserId }) => {
     };
 
     try {
-      await fetch("https://du-alumni-connect.onrender.com/api/chat/message", {
+      await authFetch("http://localhost:5000/api/chat/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(msgObj),
@@ -79,7 +79,6 @@ const ChatPage = ({ currentUserId }) => {
     }
   };
 
-  // 🌟 Full height container layout
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-white">
       <header className="bg-blue-600 text-white py-4 shadow">

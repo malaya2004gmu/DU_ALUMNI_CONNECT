@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema({
   course:String,
   year:String,
   createdAt: { type: Date, default: Date.now },
+ otp:String,
+ otpExpiry:Date,
 });
 
 module.exports = mongoose.model("User", userSchema);

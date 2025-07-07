@@ -24,7 +24,7 @@ const FeatureSection=()=>{
           <h2 className="text-3xl font-bold text-center mb-8">
             Why Join DUAlumniConnect?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 shadow ">
             {features.map((feature, index) => (
               <FeatureCard
                 key={index}

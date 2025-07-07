@@ -7,7 +7,7 @@ const Events = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://du-alumni-connect.onrender.com/api/admin/events")
+    fetch("http://localhost:5000/api/admin/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);
@@ -18,7 +18,7 @@ const Events = () => {
 
   return (
     <>
-      <div className="flex min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="flex min-h-screen bg-gradient-to-b from-blue-100 to-blue-50">
         <main className="flex-1 p-6 animate-fade-in overflow-x-auto">
           <h2 className="text-3xl font-bold mb-6 text-blue-700 text-center">All Events</h2>
           <div className="overflow-x-auto shadow-md rounded-lg bg-white p-4">

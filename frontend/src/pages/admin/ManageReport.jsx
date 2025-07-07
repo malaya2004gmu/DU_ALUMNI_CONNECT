@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useCallback} from "react";
 import Sidebar from "../../components/Sidebar";
 
 import { authFetch } from "../../utils/authFetch";
@@ -16,15 +16,15 @@ const Reports = () => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  const fetchReports = async () => {
+   const fetchReports = useCallback(async () => {
     const query = new URLSearchParams(filters).toString();
-    const res = await authFetch(`https://du-alumni-connect.onrender.com/api/admin/reports?${query}`);
+    const res = await authFetch(`http://localhost:5000/api/admin/reports?${query}`);
     const data = await res.json();
     setReportData(data);
-  };
+  }, [filters]);
 
   const fetchCourses = async () => {
-    const res = await authFetch("https://du-alumni-connect.onrender.com/api/admin/courses");
+    const res = await authFetch("http://localhost:5000/api/admin/courses");
     const data = await res.json();
     setCourses(data);
   };
@@ -32,7 +32,7 @@ const Reports = () => {
   useEffect(() => {
     fetchReports();
     fetchCourses();
-  }, []);
+  }, [fetchReports]);
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">

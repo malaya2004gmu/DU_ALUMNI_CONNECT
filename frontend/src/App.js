@@ -30,6 +30,13 @@ import { ChatProvider } from "./context/ChatContext";
 import {useAuth} from "./context/AuthContext";
 import NotFound from "./pages/Error";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+
+import CommunityPage from "./pages/comm_post/CommunityPage";
+import CreatePost from "./pages/comm_post/CreatePost";
+import PostFeed from "./pages/comm_post/PostFeed";
+import MyCommunityPosts from "./pages/comm_post/MyPosts";
+import CommProfile from "./pages/comm_post/My_Profile";
 function App() {
   const {user}=useAuth();
   return (
@@ -40,6 +47,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword/>}/>
             <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={["admin"]}><Dashboard /></ProtectedRoute>} />
             <Route path="/admin/courses" element={<ProtectedRoute allowedRoles={["admin"]}><ManageCourses /></ProtectedRoute>} />
             <Route path="/admin/events" element={<ProtectedRoute allowedRoles={["admin"]}><ManageEvents /></ProtectedRoute>} />
@@ -63,7 +71,14 @@ function App() {
             <Route path="/alumni/my-jobs" element={<ProtectedRoute allowedRoles={["alumni"]}><Myjobs /></ProtectedRoute>} />
             {/* Add your chat route here, with real user IDs or from context */}
             <Route path="/chat" element={user?<ChatPage currentUserId={user._id} />:<Login/>} />
+            {/* communityfeed */}
+             <Route path="/community-feed" element={<ProtectedRoute allowedRoles={["user","alumni","admin"]}><CommunityPage/></ProtectedRoute>}/>
+             <Route path="/create-post" element={<ProtectedRoute allowedRoles={["user","alumni","admin"]}><CreatePost/></ProtectedRoute>}/>
+             <Route path="/post-feed" element={<ProtectedRoute allowedRoles={["user","alumni","admin"]}><PostFeed/></ProtectedRoute>}/>
+             <Route path="/my-comm-posts" element={<ProtectedRoute allowedRoles={["user","alumni","admin"]}><MyCommunityPosts/></ProtectedRoute>}/>
+             <Route path="/comm-profile" element={<ProtectedRoute allowedRoles={["user","alumni","admin"]}><CommProfile/></ProtectedRoute>}/>
             <Route path="*" element={<NotFound/>}/>
+
           </Routes>
         </Layout>
       </ChatProvider>

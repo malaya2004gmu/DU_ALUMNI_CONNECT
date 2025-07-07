@@ -5,7 +5,7 @@ const ManageStudents = () => {
   const [students, setStudents] = useState([]);
   
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/students")
+    authFetch("http://localhost:5000/api/admin/students")
       .then((res) => res.json())
       .then((data) => setStudents(data));
   }, []);

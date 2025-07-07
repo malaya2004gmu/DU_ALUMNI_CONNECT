@@ -7,10 +7,10 @@ exports.verifyToken = async (req, res, next) => {
   if (!token) return res.status(401).json({ message: "Access Denied" });
 
   try {
-    const verified = jwt.verify(token,process.env.ACCESS_TOKEN); 
+    const verified = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET); 
     req.user = await User.findById(verified.id).select("-password");
     next();
   } catch (err) {
-    res.status(400).json({ message: "Invalid Token" });
+    res.status(401).json({ message: "Invalid Token" });
   }
 };

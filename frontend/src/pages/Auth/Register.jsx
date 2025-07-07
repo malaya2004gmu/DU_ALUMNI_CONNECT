@@ -1,5 +1,6 @@
 import React, { useState ,useEffect} from "react";
 
+
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,7 +18,7 @@ const Signup = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/user/courses");
+        const res = await fetch("http://localhost:5000/api/auth/user/courses");
         const data = await res.json();
         setCourses(data);
       } catch (error) {
@@ -55,7 +56,7 @@ const Signup = () => {
     if (photo) data.append("photo", photo);
 
     try {
-      const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/register", {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         body: data,
       });
@@ -80,7 +81,7 @@ const Signup = () => {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-200">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 md:p-10 rounded-3xl shadow-xl w-full max-w-lg animate-fade-in"
+        className="bg-white p-8 md:p-10 rounded-3xl shadow-xl hover:shadow-blue-500  w-full max-w-lg animate-fade-in mb-20 mt-10"
         encType="multipart/form-data"
       >
         <h2 className="text-3xl font-bold mb-8 text-center text-blue-700">
@@ -158,8 +159,9 @@ const Signup = () => {
             value={formData.course}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+            required
           >
-            <option value={formData.course}>Select Course</option>
+            <option value="" disabled>Select Course</option>
             {courses.map((course) => (
               <option key={course._id} value={course.name}>
                 {course.name}

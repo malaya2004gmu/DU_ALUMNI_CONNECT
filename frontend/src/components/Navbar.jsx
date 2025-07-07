@@ -38,6 +38,8 @@ const Navbar = () => {
               <li><Link to="/admin/events" className="hover:text-yellow-300">Events</Link></li>
               <li><Link to="/admin/job-posts" className="hover:text-yellow-300">Job Posts</Link></li>
               <li><Link to="/admin/reports" className="hover:text-yellow-300">Reports</Link></li>
+              <li> <Link to="/post-feed" className="hover:text-blue-600">Community</Link></li>
+
             </>
           )}
           {user?.role === "alumni" && (
@@ -46,6 +48,8 @@ const Navbar = () => {
               <li><Link to="/alumni/post-job" className="hover:text-yellow-300">Post Job</Link></li>
               <li><Link to="/events" className="hover:text-yellow-300">Events</Link></li>
               <li><Link to="/alumni/my-jobs" className="hover:text-yellow-300">My Posts</Link></li>
+              <li> <Link to="/post-feed" className="hover:text-blue-600">Community</Link></li>
+
             </>
           )}
           {user?.role === "user" && (
@@ -53,6 +57,8 @@ const Navbar = () => {
               <li><Link to="/alumni/profile" className="hover:text-yellow-300 flex items-center gap-1"><FaUser />My Profile</Link></li>
               <li><Link to="/events" className="hover:text-yellow-300">Events</Link></li>
               <li><Link to="/posted-jobs" className="hover:text-yellow-300">Job Posts</Link></li>
+              <li> <Link to="/post-feed" className="hover:text-blue-600">Community</Link></li>
+
             </>
           )}
           {!user && (
@@ -78,7 +84,7 @@ const Navbar = () => {
           {user ? (
             <>
               <img
-                src={user.photo ? `https://du-alumni-connect.onrender.com/${user.photo}` : "/images/demoprofile.png"}
+                src={user.photo ? `http://localhost:5000/${user.photo}` : "/images/demoprofile.png"}
                 alt="Profile"
                 className="w-9 h-9 rounded-full border-2 border-white object-cover"
               />
@@ -113,6 +119,8 @@ const Navbar = () => {
               <li><Link to="/admin/events" onClick={() => setMenuOpen(false)}>Events</Link></li>
               <li><Link to="/admin/job-posts" onClick={() => setMenuOpen(false)}>Job Posts</Link></li>
               <li><Link to="/admin/reports" onClick={() => setMenuOpen(false)}>Reports</Link></li>
+              <li><Link to="/post-feed" onClick={() => setMenuOpen(false)}>Community</Link></li>
+
             </>
           )}
           {user?.role === "alumni" && (
@@ -121,6 +129,8 @@ const Navbar = () => {
               <li><Link to="/alumni/post-job" onClick={() => setMenuOpen(false)}>Post Job</Link></li>
               <li><Link to="/events" onClick={() => setMenuOpen(false)}>Events</Link></li>
               <li><Link to="/alumni/my-jobs" onClick={() => setMenuOpen(false)}>My Posts</Link></li>
+              <li><Link to="/post-feed" onClick={() => setMenuOpen(false)}>Community</Link></li>
+
             </>
           )}
           {user?.role === "user" && (
@@ -128,6 +138,8 @@ const Navbar = () => {
               <li><Link to="/alumni/profile" onClick={() => setMenuOpen(false)}>My Profile</Link></li>
               <li><Link to="/events" onClick={() => setMenuOpen(false)}>Events</Link></li>
               <li><Link to="/posted-jobs" onClick={() => setMenuOpen(false)}>Job Posts</Link></li>
+              <li><Link to="/post-feed" onClick={() => setMenuOpen(false)}>Community</Link></li>
+
             </>
           )}
           {!user && (

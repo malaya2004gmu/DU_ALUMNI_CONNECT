@@ -24,7 +24,7 @@ const Dashboard = () => {
   });
   
   useEffect(() => {
-    authFetch("https://du-alumni-connect.onrender.com/api/admin/stat")
+    authFetch("http://localhost:5000/api/admin/stat")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);

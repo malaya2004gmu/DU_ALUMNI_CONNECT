@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/admin/dashboard", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/login", {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
@@ -47,14 +58,17 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-200">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 md:p-10 rounded-3xl shadow-xl w-full max-w-md animate-fade-in"
+        className="bg-white p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md animate-fade-in hover:shadow-blue-500"
       >
         <h2 className="text-3xl font-bold mb-8 text-center text-blue-700">
           Welcome Back
         </h2>
 
         <div className="mb-5">
-          <label className="block mb-1 font-medium text-gray-700" htmlFor="email">
+          <label
+            className="block mb-1 font-medium text-gray-700"
+            htmlFor="email"
+          >
             Email
           </label>
           <input
@@ -70,7 +84,10 @@ const Login = () => {
         </div>
 
         <div className="mb-6">
-          <label className="block mb-1 font-medium text-gray-700" htmlFor="password">
+          <label
+            className="block mb-1 font-medium text-gray-700"
+            htmlFor="password"
+          >
             Password
           </label>
           <input
@@ -91,10 +108,18 @@ const Login = () => {
         >
           Login
         </button>
+        <p className="mt-3 text-sm text-center text-blue-600">
+          <Link to="/forgot-password" className="hover:underline">
+            Forgot Password?
+          </Link>
+        </p>
 
         <p className="mt-5 text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-600 font-medium hover:underline">
+          <Link
+            to="/register"
+            className="text-blue-600 font-medium hover:underline"
+          >
             Sign up here
           </Link>
         </p>

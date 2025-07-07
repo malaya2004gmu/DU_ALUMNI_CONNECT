@@ -68,11 +68,17 @@ const ChatWindow = ({
     {/* Input */}
     <div className="flex gap-2 items-center px-1">
       <input
-        className="border border-gray-300 rounded-full px-4 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition"
-        placeholder="Type a message..."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
+  className="border border-gray-300 rounded-full px-4 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition"
+  placeholder="Type a message..."
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter" && message.trim()) {
+      sendMessage();
+    }
+  }}
+/>
+
       <button
         className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-full shadow hover:scale-105 transition-all duration-200"
         onClick={sendMessage}
