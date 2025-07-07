@@ -88,7 +88,7 @@ const CommunityPage = () => {
                 <img
                   src={
                     post.author?.photo
-                      ? `http://localhost:5000/${post.author.photo}`
+                      ? `https://du-alumni-connect.onrender.com/${post.author.photo}`
                       : "/default-avatar.png"
                   }
                   alt="Author"
@@ -113,7 +113,7 @@ const CommunityPage = () => {
               {/* Post Image */}
               {post.image && (
                 <img
-                  src={`http://localhost:5000/${post.image}`}
+                  src={`https://du-alumni-connect.onrender.com/${post.image}`}
                   alt="Post"
                   className="rounded-lg w-full max-h-80 object-cover mb-4"
                 />

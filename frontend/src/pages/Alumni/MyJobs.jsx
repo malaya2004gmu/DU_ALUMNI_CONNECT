@@ -4,7 +4,7 @@ const MyJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   const fetchJobs = () => {
-    authFetch("http://localhost:5000/api/alumni/my-jobs")
+    authFetch("https://du-alumni-connect.onrender.com/api/alumni/my-jobs")
       .then((res) => res.json())
       .then((data) => setJobs(data));
   };
@@ -16,7 +16,7 @@ const MyJobs = () => {
   const handleDelete = async (jobId) => {
     if (!window.confirm("Are you sure you want to delete this job?")) return;
     try {
-      const res = await authFetch(`http://localhost:5000/api/alumni/delete-job/${jobId}`, {
+      const res = await authFetch(`https://du-alumni-connect.onrender.com/api/alumni/delete-job/${jobId}`, {
         method: "DELETE",
       });
       if (res.status===200) {

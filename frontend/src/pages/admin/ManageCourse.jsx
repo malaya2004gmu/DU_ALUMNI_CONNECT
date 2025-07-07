@@ -5,7 +5,7 @@ const ManageCourses = () => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    authFetch("http://localhost:5000/api/admin/courses")
+    authFetch("https://du-alumni-connect.onrender.com/api/admin/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);

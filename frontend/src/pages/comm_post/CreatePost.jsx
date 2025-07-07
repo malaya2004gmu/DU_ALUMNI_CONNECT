@@ -28,7 +28,7 @@ const CreatePost = () => {
     if (image) formData.append("image", image);
 
     try {
-      const res = await authFetch("http://localhost:5000/api/post", {
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/post", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

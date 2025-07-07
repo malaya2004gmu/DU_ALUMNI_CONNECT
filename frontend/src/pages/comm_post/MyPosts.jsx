@@ -12,7 +12,7 @@ const MyPostsPage = () => {
 
   const fetchMyPosts = async () => {
     try {
-      const res = await authFetch("http://localhost:5000/api/post/my-posts");
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/post/my-posts");
       const data = await res.json();
 
       if (!res.ok || !Array.isArray(data)) {
@@ -32,7 +32,7 @@ const MyPostsPage = () => {
   const handleDelete = async (postId) => {
 
     try {
-      const res = await authFetch(`http://localhost:5000/api/post/post-delete/${postId}`, {
+      const res = await authFetch(`https://du-alumni-connect.onrender.com/api/post/post-delete/${postId}`, {
         method: "DELETE",
       });
 
@@ -83,7 +83,7 @@ const MyPostsPage = () => {
                 <img
                   src={
                     post.author?.photo
-                      ? `http://localhost:5000/${post.author.photo}`
+                      ? `https://du-alumni-connect.onrender.com/${post.author.photo}`
                       : "/default-avatar.png"
                   }
                   alt="Author"
@@ -104,7 +104,7 @@ const MyPostsPage = () => {
               {/* Post Image */}
               {post.image && (
                 <img
-                  src={`http://localhost:5000/${post.image}`}
+                  src={`https://du-alumni-connect.onrender.com/${post.image}`}
                   alt="Post"
                   className="rounded-lg w-full max-h-80 object-cover mb-4"
                 />

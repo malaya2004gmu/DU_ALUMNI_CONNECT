@@ -20,7 +20,7 @@ const PostJob = () => {
     e.preventDefault();
     
     try {
-      const res = await authFetch("http://localhost:5000/api/add/job-post", {
+      const res = await authFetch("https://du-alumni-connect.onrender.com/api/add/job-post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
