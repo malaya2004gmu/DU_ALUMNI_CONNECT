@@ -47,7 +47,7 @@ const Navbar = () => {
               <li><Link to="/alumni/profile" className="hover:text-yellow-300 flex items-center gap-1"><FaUser />My Profile</Link></li>
               <li><Link to="/alumni/post-job" className="hover:text-yellow-300">Post Job</Link></li>
               <li><Link to="/events" className="hover:text-yellow-300">Events</Link></li>
-              <li><Link to="/alumni/my-jobs" className="hover:text-yellow-300">My Posts</Link></li>
+              <li><Link to="/alumni/my-jobs" className="hover:text-yellow-300">My Jobs Posts</Link></li>
               <li> <Link to="/post-feed" className="hover:text-blue-600">Community</Link></li>
 
             </>
@@ -128,7 +128,7 @@ const Navbar = () => {
               <li><Link to="/alumni/profile" onClick={() => setMenuOpen(false)}>My Profile</Link></li>
               <li><Link to="/alumni/post-job" onClick={() => setMenuOpen(false)}>Post Job</Link></li>
               <li><Link to="/events" onClick={() => setMenuOpen(false)}>Events</Link></li>
-              <li><Link to="/alumni/my-jobs" onClick={() => setMenuOpen(false)}>My Posts</Link></li>
+              <li><Link to="/alumni/my-jobs" onClick={() => setMenuOpen(false)}>My Jobs Posts</Link></li>
               <li><Link to="/post-feed" onClick={() => setMenuOpen(false)}>Community</Link></li>
 
             </>

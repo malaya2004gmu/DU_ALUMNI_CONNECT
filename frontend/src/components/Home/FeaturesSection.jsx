@@ -20,7 +20,7 @@ const FeatureSection=()=>{
     },
   ];
     return (
-    <section className="bg-gray-100 py-10 px-6 sm:px-12 animate-fade-in">
+    <section className="py-10 px-6 sm:px-12 animate-fade-in">
           <h2 className="text-3xl font-bold text-center mb-8">
             Why Join DUAlumniConnect?
           </h2>

@@ -39,7 +39,7 @@ const Sidebar = () => {
           <button
             onClick={() => navigate("/comm-profile")}
             className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-md transition ${
-              isActive("/alumni/profile") ? "bg-blue-100 text-blue-700 font-semibold" : "hover:text-blue-600"
+              isActive("/comm-profile") ? "bg-blue-100 text-blue-700 font-semibold" : "hover:text-blue-600"
             }`}
           >
             <span className="material-symbols-outlined">person</span>

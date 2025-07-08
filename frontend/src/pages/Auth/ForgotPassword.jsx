@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [step, setStep] = useState(1); // 1 = send otp, 2 = verify + reset
+  const [step, setStep] = useState(1); // 1 = send OTP, 2 = verify + reset
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -57,58 +57,89 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-100 px-4">
-      <div className="bg-white p-8 rounded-lg shadow-xl hover:shadow-blue-400 w-full max-w-md animate-fade-in">
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          {step === 1 ? "Forgot Password" : "Reset Password"}
-        </h2>
+    <div className="w-full min-h-screen bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center p-6">
+      <div className="bg-white w-full max-w-md rounded-lg shadow-2xl hover:shadow-blue-500 overflow-hidden animate-fade-in">
+        <div className="bg-blue-600 p-8 text-white text-center">
+          <h2 className="text-3xl font-bold">
+            {step === 1 ? "Forgot Password" : "Reset Password"}
+          </h2>
+          <p className="text-blue-100 mt-1">
+            {step === 1
+              ? "Enter your email to receive an OTP"
+              : "Enter OTP and your new password"}
+          </p>
+        </div>
 
-        {step === 1 ? (
-          <>
-            <input
-              type="email"
-              placeholder="Enter your registered email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full mb-4 p-2 border rounded"
-            />
-            <button
-              onClick={sendOtp}
-              className="bg-blue-600 text-white px-4 py-2 rounded w-full"
-            >
-              Send OTP
-            </button>
-          </>
-        ) : (
-          <>
-            <input
-              type="text"
-              placeholder="Enter OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              className="w-full mb-3 p-2 border rounded"
-            />
-            <input
-              type="password"
-              placeholder="Enter New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full mb-3 p-2 border rounded"
-            />
-            <button
-              onClick={resetPassword}
-              className="bg-green-600 text-white px-4 py-2 rounded w-full"
-            >
-              Reset Password
-            </button>
-          </>
-        )}
+        <div className="p-8 space-y-5">
+          {step === 1 ? (
+            <>
+              <div>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full h-14 px-4 border-2 border-gray-200 bg-gray-50 text-lg rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+                  required
+                />
+              </div>
+              <button
+                onClick={sendOtp}
+                className="w-full h-12 bg-blue-600 text-white text-lg font-bold rounded-lg hover:bg-blue-700 transition-all shadow-md"
+              >
+                Send OTP
+              </button>
+            </>
+          ) : (
+            <>
+              <div>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  OTP
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter OTP"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  className="w-full h-14 px-4 border-2 border-gray-200 bg-gray-50 text-lg rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  New Password
+                </label>
+                <input
+                  type="password"
+                  placeholder="Enter new password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full h-14 px-4 border-2 border-gray-200 bg-gray-50 text-lg rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+                  required
+                />
+              </div>
+              <button
+                onClick={resetPassword}
+                className="w-full h-12 bg-green-600 text-white text-lg font-bold rounded-lg hover:bg-green-700 transition-all shadow-md"
+              >
+                Reset Password
+              </button>
+            </>
+          )}
 
-        {message && (
-          <div className={`mt-4 font-bold text-center ${error ? "text-red-500" : "text-green-600"}`}>
-            {message}
-          </div>
-        )}
+          {message && (
+            <div
+              className={`text-center font-semibold ${
+                error ? "text-red-600" : "text-green-600"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

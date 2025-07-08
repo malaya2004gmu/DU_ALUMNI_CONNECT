@@ -24,7 +24,6 @@ const Login = () => {
     try {
       const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/login", {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
@@ -55,75 +54,84 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-200">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md animate-fade-in hover:shadow-blue-500"
-      >
-        <h2 className="text-3xl font-bold mb-8 text-center text-blue-700">
-          Welcome Back
-        </h2>
+    <div id="webcrumbs">
+      <div className="w-full min-h-screen bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center p-8">
+        <div className="bg-white w-full max-w-md rounded-lg shadow-2xl hover:shadow-blue-500 overflow-hidden animate-fade-in">
+          <div className="bg-blue-600 p-8 text-white text-center">
+            <h2 className="text-4xl font-bold mb-2">Welcome Back</h2>
+            <p className="text-blue-100 text-lg">Login to continue</p>
+          </div>
 
-        <div className="mb-5">
-          <label
-            className="block mb-1 font-medium text-gray-700"
-            htmlFor="email"
+          <form
+            onSubmit={handleSubmit}
+            className="p-8 md:p-10 space-y-6"
+            autoComplete="on"
           >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="username"
-            placeholder="you@example.com"
-          />
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-2 font-semibold text-gray-800 text-lg"
+              >
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                className="w-full h-14 px-4 border-2 border-gray-200 bg-gray-50 text-lg focus:outline-none focus:border-blue-500 focus:bg-white transition-all rounded-lg"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block mb-2 font-semibold text-gray-800 text-lg"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                className="w-full h-14 px-4 border-2 border-gray-200 bg-gray-50 text-lg focus:outline-none focus:border-blue-500 focus:bg-white transition-all rounded-lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="••••••••"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white h-14 text-lg font-bold hover:bg-blue-700 transition-all transform hover:scale-105 rounded-lg shadow-md"
+            >
+              Login
+            </button>
+
+            <div className="text-center pt-2">
+              <p className="text-sm text-blue-600">
+                <Link to="/forgot-password" className="hover:underline">
+                  Forgot Password?
+                </Link>
+              </p>
+            </div>
+
+            <div className="text-center pt-4">
+              <p className="text-gray-600 text-md">
+                Don’t have an account?
+                <Link
+                  to="/register"
+                  className="text-blue-600 font-semibold hover:text-blue-700 ml-2 transition-colors"
+                >
+                  Sign up here
+                </Link>
+              </p>
+            </div>
+          </form>
         </div>
-
-        <div className="mb-6">
-          <label
-            className="block mb-1 font-medium text-gray-700"
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-            placeholder="••••••••"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold tracking-wide"
-        >
-          Login
-        </button>
-        <p className="mt-3 text-sm text-center text-blue-600">
-          <Link to="/forgot-password" className="hover:underline">
-            Forgot Password?
-          </Link>
-        </p>
-
-        <p className="mt-5 text-center text-sm text-gray-600">
-          Don't have an account?{" "}
-          <Link
-            to="/register"
-            className="text-blue-600 font-medium hover:underline"
-          >
-            Sign up here
-          </Link>
-        </p>
-      </form>
+      </div>
     </div>
   );
 };
