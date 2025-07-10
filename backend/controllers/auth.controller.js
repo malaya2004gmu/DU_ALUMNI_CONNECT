@@ -4,8 +4,10 @@ const jwt = require("jsonwebtoken");
 const Course=require("../models/course");
 const crypto=require("crypto");
 const nodemailer=require("nodemailer");
+const fs=require('fs');
+const path=require("path");
 require("dotenv").config();
-
+const pgpKeyGenerate =require("../utils/pgpKey");
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -45,6 +47,8 @@ exports.login = async (req, res) => {
         photo: user.photo,
         year: user.year,
         course:user.course,
+        publicKey:user.publicKey,
+        privateKey:user.privateKey,
       },
     });
   } catch (err) {
@@ -53,19 +57,19 @@ exports.login = async (req, res) => {
 };
 
 exports.handleRegister = async (req, res) => {
-  const { name, contactNumber, email, password, role,year,course } = req.body;
+  const { name, contactNumber, email, password, role,year,course ,publicKey} = req.body;
   const photo = req.file ? req.file.path : null;
 
   try {
-    // Check if user exists
+   
     const existingUser = await User.findOne({ email });
     if (existingUser)
       return res.status(400).json({ message: "Email already in use" });
-
-    // Hash password
+  
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create new user
+    const {privateKey,publicKey}=await pgpKeyGenerate(name,email);
+
     const newUser = new User({
       name,
       contactNumber,
@@ -75,6 +79,8 @@ exports.handleRegister = async (req, res) => {
       photo,
       year,
       course,
+      publicKey,
+      privateKey,
     });
 
     await newUser.save();
@@ -89,13 +95,22 @@ exports.updateProfile = async (req, res) => {
   console.log("updating .. profile");
   try {
     const userId = req.user.id;
-    const { name, contactNumber } = req.body; // <-- fixed typo here
-    let updateFields = { name, contactNumber }; // <-- define updateFields
+    const { name, contactNumber } = req.body; 
+    let updateFields = { name, contactNumber };
 
     if (req.file) {
       updateFields.photo = req.file.path.replace(/\\/g, "/");
     }
-
+    const user=await User.findById(userId);
+    if(user.photo)
+    {
+      const imagepath=path.join(__dirname,'..',user.photo);
+      fs.unlink(imagepath,(err)=>{
+        if(err){
+          console.log("error in updating image");
+        }
+      })
+    }
     const updateUser = await User.findByIdAndUpdate(
       userId,
       { $set: updateFields },

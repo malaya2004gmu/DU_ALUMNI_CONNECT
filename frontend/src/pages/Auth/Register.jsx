@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -38,13 +37,12 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, contactNumber, email, password, role, course, year } = formData;
+    const { name, contactNumber, email, password, role, course, year, } = formData;
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-
     const data = new FormData();
     data.append("name", name);
     data.append("contactNumber", contactNumber);
@@ -67,7 +65,6 @@ const Signup = () => {
         alert(result.message || "Registration failed");
         return;
       }
-
       alert("Registration successful! Please log in.");
       window.location.href = "/login";
     } catch (error) {

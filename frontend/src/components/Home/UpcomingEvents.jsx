@@ -36,9 +36,9 @@ const UpcomingEvents = () => {
 
                 {/* Event Details */}
                 <div className="p-5">
-                  <h3 className="text-xl font-semibold text-blue-800 mb-2 line-clamp-1">
-                    {event.title}
-                  </h3>
+                  {/* <h3 className="text-xl font-semibold text-blue-800 mb-2 line-clamp-1"> */}
+                   <marquee className="text-xl font-semibold text-blue-800 mb-2 line-clamp-1">{event.title}</marquee>
+                  
                   <p className="text-sm text-gray-600 mb-1">
                     📅{" "}
                     {event.date

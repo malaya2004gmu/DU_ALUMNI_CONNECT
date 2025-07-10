@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Post = require("../models/post");
-
+const fs=require("fs");
+const path = require("path");
 exports.createPost = async (req, res) => {
   const { title, content, category } = req.body;
   const image = req.file ? req.file.path : null;
@@ -99,7 +100,18 @@ exports.deletePost=async(req,res)=>{
   try{
     const del=await Post.findByIdAndDelete(id);
     if(!del) return res.status(404).json({message:"unable to delete bcz post not found"});
-    
+
+    if(del.image)
+    {
+      const imaagePath=path.join(__dirname,"..",del.image);
+      fs.unlink(imaagePath,(err)=>{
+        if(err){console.log("error in deleting image")}
+        else
+        {
+          console.log("image deleted successfullly");
+        }
+      })
+    }
     return res.status(200).json({message:"post deleted successfully"});
   }
   catch(err)

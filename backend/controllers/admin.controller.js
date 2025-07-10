@@ -3,7 +3,8 @@ const User = require("../models/user");
 const JobPost = require("../models/jobPost");
 const Event = require("../models/events");
 const Course = require("../models/course");
-
+const fs=require("fs");
+const path=require('path');
 exports.getAlumni = async (req, res) => {
   
   try {
@@ -160,7 +161,19 @@ exports.deleteEvent =async(req,res)=>{
     if (!mongoose.Types.ObjectId.isValid(eventId)) {
       return res.status(400).json({ error: "Invalid event ID" });
     }
+    const event=await Event.findById(eventId);
+    if(!event) return res.status(404).json({message:"event not found"});
 
+    if(event.photo)
+    {
+      const pathname=path.join(__dirname,'..',event.photo);
+       fs.unlink(pathname,(err)=>{
+        if(err){
+          console.log("error in deleting event image");
+        }
+       
+       })
+    }
     const deletedEvent = await Event.findByIdAndDelete(eventId);
     if (!deletedEvent) {
       return res.status(404).json({ error: "Event not found" });
