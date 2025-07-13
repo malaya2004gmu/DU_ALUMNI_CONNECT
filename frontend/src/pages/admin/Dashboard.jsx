@@ -56,7 +56,7 @@ const Dashboard = () => {
             onViewDetails={() => navigate("/admin/approved-jobs")}
           />
           <DashboardCard
-            title="Rejected Jobs"
+            title="Pending Jobs"
             count={(data.jobPostCount - data.approvedJobCount) || 0}
             color="bg-red-600"
             icon={<FaTimes />}

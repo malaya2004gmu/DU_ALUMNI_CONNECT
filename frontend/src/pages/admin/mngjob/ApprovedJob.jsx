@@ -7,7 +7,6 @@ const ApprovedJobs = () => {
     authFetch("https://du-alumni-connect.onrender.com/api/admin/approved-jobs")
       .then((res) => res.json())
       .then((data) => {
-        //const filtered = data.filter((job) => job.status === "approved");
         setApprovedJobs(data);
       })
       .catch((err) => console.error("Error fetching approved jobs:", err));
@@ -34,7 +33,7 @@ const ApprovedJobs = () => {
                 {approvedJobs.length > 0 ? (
                   approvedJobs.map((job) => (
                     <tr key={job._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">{job.postedBy.email || "N/A"}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{job?.postedBy?.email || "N/A"}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{job.title}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{job.company}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{job.location}</td>

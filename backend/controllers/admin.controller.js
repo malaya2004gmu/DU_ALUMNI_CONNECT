@@ -27,8 +27,7 @@ exports.getStudents= async(req,res)=>{
 exports.getJobPosts = async (req, res) => {
   try {
     const jobPosts = await JobPost.find({})
-      .populate("postedBy", "name email")
-      .exec();
+      .populate("postedBy", "name email");
     res.status(200).json(jobPosts);
   } catch (err) {
     console.error(err);

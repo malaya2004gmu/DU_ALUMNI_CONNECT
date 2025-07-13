@@ -51,7 +51,7 @@ const PostedJobs = () => {
                       key={job._id}
                       className="hover:bg-blue-50 border-b border-gray-200"
                     >
-                      <td className="px-4 py-3">{job.postedBy?.email}</td>
+                      <td className="px-4 py-3">{job.postedBy?.name}</td>
                       <td className="px-4 py-3 font-medium text-blue-900">
                         {job.title}
                       </td>

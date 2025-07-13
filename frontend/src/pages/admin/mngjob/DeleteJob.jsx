@@ -46,7 +46,7 @@ const DeleteJob = () => {
           <tbody>
             {jobs.map((job) => (
               <tr key={job._id}>
-                <td className=" px-4 py-2">{job.postedBy.email}</td>
+                <td className=" px-4 py-2">{job.postedBy?.email}</td>
                 <td className=" px-4 py-2">{job.title}</td>
                 <td className=" px-4 py-2">{job.company}</td>
                 <td className={`px-4 py-2 font-semibold ${job.status==="rejected"?"text-red-600":job.status==="approved"?"text-green-600":"text-gray-700"}`}>{job.status}</td>
