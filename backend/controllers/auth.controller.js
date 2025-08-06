@@ -7,7 +7,9 @@ const nodemailer=require("nodemailer");
 const fs=require('fs');
 const path=require("path");
 require("dotenv").config();
+const {encryptPrivateKey, decryptPrivateKey}=require("../utils/crypto");
 const pgpKeyGenerate =require("../utils/pgpKey");
+const Otp =require("../models/otp");
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -33,7 +35,7 @@ exports.login = async (req, res) => {
     //   sameSite: "Strict",
     //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     // });
-    
+    const decryptedPrivateKey=decryptPrivateKey(user.privateKey);
     await user.save();
     res.json({
       token,
@@ -48,7 +50,7 @@ exports.login = async (req, res) => {
         year: user.year,
         course:user.course,
         publicKey:user.publicKey,
-        privateKey:user.privateKey,
+        privateKey: decryptedPrivateKey,
       },
     });
   } catch (err) {
@@ -57,7 +59,7 @@ exports.login = async (req, res) => {
 };
 
 exports.handleRegister = async (req, res) => {
-  const { name, contactNumber, email, password, role,year,course ,publicKey} = req.body;
+  const { name, contactNumber, email, password, role,year,course } = req.body;
   const photo = req.file ? req.file.path : null;
 
   try {
@@ -69,7 +71,7 @@ exports.handleRegister = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const {privateKey,publicKey}=await pgpKeyGenerate(name,email);
-
+   const encrptedprivateKey=encryptPrivateKey(privateKey);
     const newUser = new User({
       name,
       contactNumber,
@@ -80,7 +82,7 @@ exports.handleRegister = async (req, res) => {
       year,
       course,
       publicKey,
-      privateKey,
+      privateKey:encrptedprivateKey,
     });
 
     await newUser.save();
@@ -192,4 +194,44 @@ exports.verifyOtpAndReset = async (req, res) => {
   await user.save();
 
   res.json({ message: "Password reset successful login Now" });
+};
+
+exports.sendOtpForRegister = async (req, res) => {
+  const { email } = req.body;
+  let user = await User.findOne({ email });
+  if(user) return res.status(400).json({message:"Email already registered please sign in "});
+ 
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const otpExpiry = Date.now() + 10 * 60 * 1000; // 10 minutes
+  await Otp.findOneAndUpdate(
+    { email },
+    { otp, otpExpiry },
+    { upsert: true, new: true }
+  );
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.MAIL_USER, 
+      pass: process.env.MAIL_PASS, 
+    },
+  });
+  await transporter.sendMail({
+    to: email,
+    subject: "Your OTP for Registering on DUAlumniConnect",
+    text: `Your OTP is: ${otp}`,
+  });
+
+  res.json({ message: "OTP sent to email" });
+};
+
+exports.verifyOtp = async (req, res) => {
+  const { email, otp } = req.body;
+ const otpDoc =await Otp.findOne({email,otp});
+
+ if(!otpDoc || otpDoc.otpExpiry< Date.now()) {
+    return res.status(400).json({ message: "Invalid or expired OTP" });
+  }
+  await Otp.deleteOne({email});
+  res.json({ message: "OTP verified successfully" });
+  
 };

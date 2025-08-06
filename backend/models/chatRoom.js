@@ -19,7 +19,7 @@ const chatRoomSchema = new mongoose.Schema({
   messages: [
     {
       sender: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      encryptedMessage: { type: String, required: true }, // AES encrypted message
+      encryptedMessage: { type: String, required: true }, 
       encryptedKeys: {
         type: Map,
         of: String, // Each value is the AES key encrypted with a participant's public key

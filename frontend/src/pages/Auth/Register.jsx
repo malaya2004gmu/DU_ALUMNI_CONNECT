@@ -12,6 +12,10 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [photo, setPhoto] = useState(null);
   const [courses, setCourses] = useState([]);
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [message, setMessage] = useState(""); // Message state
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -21,7 +25,7 @@ const Signup = () => {
         setCourses(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
-        alert("Failed to load courses. Please try again later.");
+        setMessage("Failed to load courses. Please try again later.");
       }
     };
     fetchCourses();
@@ -35,12 +39,66 @@ const Signup = () => {
     setPhoto(e.target.files[0]);
   };
 
+  const handleSendOtp = async () => {
+    setMessage("");
+    if (!formData.email) {
+      setMessage("Please enter your email first.");
+      return;
+    }
+    try {
+      const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setOtpSent(true);
+        setMessage("OTP sent to your email.");
+      } else {
+        setMessage(data.message || "Failed to send OTP");
+      }
+    } catch (err) {
+      setMessage("Error sending OTP");
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setMessage("");
+    if (!otp) {
+      setMessage("Please enter the OTP.");
+      return;
+    }
+    try {
+      const res = await fetch("https://du-alumni-connect.onrender.com/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email, otp }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setOtpVerified(true);
+        setMessage("OTP verified! You can now register.");
+      } else {
+        setMessage(data.message || "OTP verification failed");
+      }
+    } catch (err) {
+      setMessage("Error verifying OTP");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, contactNumber, email, password, role, course, year, } = formData;
+    setMessage("");
+    const { name, contactNumber, email, password, role, course, year } = formData;
+
+    if (!otpVerified) {
+      setMessage("Please verify your email with OTP before registering.");
+      return;
+    }
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setMessage("Passwords do not match!");
       return;
     }
     const data = new FormData();
@@ -62,14 +120,16 @@ const Signup = () => {
       const result = await res.json();
 
       if (!res.ok) {
-        alert(result.message || "Registration failed");
+        setMessage(result.message || "Registration failed");
         return;
       }
-      alert("Registration successful! Please log in.");
-      window.location.href = "/login";
+      setMessage("Registration successful! Please log in.");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
     } catch (error) {
       console.error("Signup error:", error);
-      alert("Something went wrong!");
+      setMessage("Something went wrong!");
     }
   };
 
@@ -112,15 +172,48 @@ const Signup = () => {
 
             <div>
               <label className="block text-gray-800 font-semibold mb-2 text-lg">Email Address</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full h-14 px-4 border-2 border-gray-200 bg-gray-50 text-lg focus:outline-none focus:border-blue-500 focus:bg-white transition-all rounded-lg"
-                placeholder="test@gmail.com"
-                required
-              />
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full h-14 px-4 border-2 border-gray-200 bg-gray-50 text-lg focus:outline-none focus:border-blue-500 focus:bg-white transition-all rounded-lg"
+                  placeholder="test@gmail.com"
+                  required
+                  disabled={otpSent}
+                />
+                {!otpSent && (
+                  <button
+                    type="button"
+                    onClick={handleSendOtp}
+                    className="bg-blue-500 text-white px-4 rounded-lg"
+                  >
+                    Verify
+                  </button>
+                )}
+              </div>
+              {otpSent && !otpVerified && (
+                <div className="flex gap-2 mt-2">
+                  <input
+                    type="text"
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    className="w-full h-14 px-4 border-2 border-blue-200 bg-gray-50 text-lg rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleVerifyOtp}
+                    className="bg-green-500 text-white px-4 rounded-lg"
+                  >
+                    Verify OTP
+                  </button>
+                </div>
+              )}
+              {otpVerified && (
+                <div className="text-green-600 mt-2">OTP Verified!</div>
+              )}
             </div>
 
             <div className="bg-gray-50 p-6 border-l-4 border-blue-500 rounded-r-lg">
@@ -234,6 +327,9 @@ const Signup = () => {
                 </a>
               </p>
             </div>
+            {message && (
+              <div className="mt-6 text-center text-lg font-semibold text-blue-700">{message}</div>
+            )}
           </form>
         </div>
       </div>
