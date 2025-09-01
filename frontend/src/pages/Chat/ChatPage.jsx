@@ -69,7 +69,7 @@ const ChatPage = ({ currentUserId }) => {
               passwords: [decryptedAESKey],
             });
 
-            return { ...msg, text: decryptedText };
+            return { ...msg, text: decryptedText }; 
           } catch (err) {
             console.error("Decryption error:", err.message);
             return { ...msg, text: "[Encrypted]" };
